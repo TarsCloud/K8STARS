@@ -1,0 +1,12 @@
+.idea/
+.vscode/
+cmd/tarscli/tarscli
+examples/*/tmp/*
+examples/*/start.log
+examples/simple/SimpleServer
+baseserver/_server_meta.yaml
+baseserver/build/
+baseserver/deploy/
+baseserver/tarsregistry/
+baseserver/tarsweb/web/
+examples/simple/SimpleServer.tgz

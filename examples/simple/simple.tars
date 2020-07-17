@@ -1,0 +1,5 @@
+module App{
+    interface SimpleServer {
+        int Sum(int a, int b);
+    };
+};

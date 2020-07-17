@@ -1,0 +1,39 @@
+conf:
+  application: App
+  server: Server1
+  set_id: ""
+  locator: tars.tarsregistry.QueryObj@tcp -h tars-registry.default.svc.cluster.local -p 17890
+  sample_rate: 100000
+  max_sample_count: 50
+  statObj: tars.tarsstat.StatObj
+  propertyObj: tars.tarsproperty.PropertyObj
+  asyncThreadNum: 3
+  sync_invoke_timeout: 3000
+  async_invoke_timeout: 5000
+  report_interval: 6000
+  refresh_endpoint_interval: 60000
+  adapters:
+  - object: MainObj
+    endpoint: tcp -h 192.168.0.3 -p 13003
+    maxconns: 200000
+    protocol: tars
+    queuecap: 10000
+    queuetimeout: 60000
+    threads: 10
+  - object: QueryObj
+    endpoint: tcp -h 192.168.0.3 -p 13004
+    maxconns: 200000
+    protocol: tars
+    queuecap: 10000
+    queuetimeout: 60000
+    threads: 5
+  local: tcp -h 127.0.0.1 -p 13005
+  logSize: 100M
+  logNum: 5
+  configObj: tars.tarsconfig.ConfigObj
+  notifyObj: tars.tarsnotify.NotifyObj
+  logObj: tars.tarslog.LogObj
+  logLevel: DEBUG
+  deactivating_timeout: 3000
+local_ip: 192.168.0.3
+tars_path: testtarsdir

@@ -1,0 +1,8 @@
+version: v1
+application: tars
+server: tarsregistry
+adapters:
+  - object: QueryObj
+    endpoint: tcp -h ${local_ip} -p 17890
+  - object: RegistryObj
+    endpoint: tcp -h ${local_ip} -p 17891

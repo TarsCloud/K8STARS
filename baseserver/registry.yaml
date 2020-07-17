@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tars-db-config
+data:
+  DB_HOST: "tars-db.default.svc.cluster.local"
+  DB_PORT: "3306"
+  DB_USER: root
+  DB_PASS: pass
+  DB_DSN: "root:pass@tcp(tars-db.default.svc.cluster.local:3306)/db_tars"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tars-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tars-registry
+  template:
+    metadata:
+      labels:
+        app: tars-registry
+    spec:
+      containers:
+      - name: tars-cppregistry
+        image: ccr.ccs.tencentyun.com/tarsbase/cppregistry:latest
+        ports:
+          - containerPort: 17890
+        env:
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_HOST
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_PORT
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_USER
+          - name: DB_PASS
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_PASS
+      - name: tars-registry
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:latest
+        env:
+        - name: DB_DSN
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_DSN
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tars-registry
+spec:
+  selector:
+    app: tars-registry
+  ports:
+    - protocol: TCP
+      port: 17890

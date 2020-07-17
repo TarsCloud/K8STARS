@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tars-db-all-in-one
+spec:
+  selector:
+    matchLabels:
+      app: tars-db-all-in-one
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tars-db-all-in-one
+    spec:
+      containers:
+      - name: tars-db-all-in-one
+        image: mysql:5.6
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: pass
+        ports:
+          - containerPort: 3306
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tars-db
+spec:
+  selector:
+    app: tars-db-all-in-one
+  ports:
+    - protocol: TCP
+      port: 3306

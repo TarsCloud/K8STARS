@@ -1,0 +1,38 @@
+module tars
+{
+    struct AdapterConf{
+        0 require string servant;
+        1 require string endpoint;
+        2 optional string protocol;
+        3 optional int maxConns;
+        4 optional int threadNum;
+        5 optional int queueCap;
+        6 optional int queueTimeout;
+    };
+    struct onStartupReq{
+        0 require string nodeName;
+        1 require string application;
+        2 require string server;
+        3 optional string setID;
+        4 optional vector<AdapterConf> adapters;
+        5 optional bool disableFlow;
+        6 optional string State = "active";
+        7 optional string Version;
+    };
+
+    struct onPrestopReq{
+        0 require string nodeName;
+    };
+
+    struct keepAliveReq{
+        0 require string nodeName;
+        1 require string state; // inactive or active
+    };
+
+    interface tarsregistry
+    {
+        void onStartup(onStartupReq req);
+        void onPrestop(onPrestopReq req);
+        void keepAlive(keepAliveReq req);
+    };
+};

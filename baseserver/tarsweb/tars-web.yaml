@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tars-web
+spec:
+  selector:
+    matchLabels:
+      app: tars-web
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tars-web
+    spec:
+      containers:
+      - name: tars-web
+        image: tarsweb:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3000
+          - containerPort: 3001

@@ -1,0 +1,7 @@
+version: v1
+application: App
+server: SimpleServer
+adapters:
+  - object: MainObj
+  - object: HttpObj
+    endpoint: tcp -h ${local_ip} -p 80

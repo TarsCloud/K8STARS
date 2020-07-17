@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarsnotify
+  labels:
+    app: tarsnotify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarsnotify
+  template:
+    metadata:
+      labels:
+        app: tarsnotify
+    spec:
+      containers:
+      - name: tarsnotify
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsnotify:latest
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_HOST
+        livenessProbe:
+            exec:
+              command: ["tarscli", "hzcheck"]
+            initialDelaySeconds: 5
+            timeoutSeconds: 6
+            periodSeconds: 8
+        lifecycle:
+          preStop:
+            exec:
+              command: ["tarscli", "prestop"]

@@ -1,0 +1,13 @@
+version: v1
+application: App
+server: Server1
+adapters:
+  - object: MainObj
+    # 以下非必要
+    endpoint: tcp -h ${local_ip} -p ${random_port}
+    maxconns: 200000
+    protocol: tars
+    queuecap: 10000
+    queuetimeout: 60000
+    threads: 10
+  - object: QueryObj
