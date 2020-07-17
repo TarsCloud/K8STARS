@@ -22,14 +22,14 @@ k8stars是便于将tars服务运行在容器中的方案。
    示例说明：
    - 镜像由examples/simple/Dockerfile文件制作，基础镜像由cmd/tarscli/Dockerfile制作
    - start.sh中的`tarscli genconf`用于生成tars服务启动配置
-   - _server_meta.yaml文件用于配置服务的元数据，字段信息可以参考app/genconf/config.go中的`ServerConf`结构体。endpoint默认为`tcp -h ${local_ip} -p ${random_port}`，支持自动填入IP和随机端口。
+   - _server_meta.yaml文件用于配置服务的元数据，字段信息可以参考app/genconf/config.go中的`ServerConf`结构体。endpoint默认为`tcp -h ${local_ip} -p ${random_port}`，支持自动填入IP和随机端口。
 
 
 3. 验证部署
    登录db_tars，然后执行`select * from t_server_conf\G`可以看到simpleserver的节点信息已自动注册。
 
 ## tars部署目录结构
-`tarscli`基于环境变量`TARS_PATH`（默认/tars）来管理服务，各目录功能：
+`tarscli`基于环境变量`TARS_PATH`（默认/tars）来管理服务，各目录功能：
    - ${TARS_PATH}/bin：启动脚本和二进制文件
    - ${TARS_PATH}/conf：配置文件
    - ${TARS_PATH}/log：log文件
