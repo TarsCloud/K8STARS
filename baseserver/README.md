@@ -8,7 +8,8 @@
 
 2. 部署tars db
    ```
-   // 获取tars的deploy相关文件
+   // 进入baseserver目录，获取tars的deploy相关文件
+   cd baseserver
    make deploy
    
    // 创建一个MySQL数据库用于体验(在生产环境中，建议使用云db实例)
