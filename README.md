@@ -36,7 +36,7 @@ k8stars是便于将tars服务运行在容器中的方案。
    - ${TARS_PATH}/data：运行状态/缓存文件
 
 ## 关于tarscli
-   `tarscli`提供了一组命令工具，方便tars服务的容器化部署，可通过环境变量来指定参数，详细说明见`tarscli help`。
+   `tarscli`提供了一组命令工具，方便tars服务的容器化部署，可通过环境变量来指定参数，详细说明见`tarscli help`。
    以下是tarscli支持的子命令
    - genconf 用于生成tars服务的启动配置文件。支持的环境变量有：
      - `TARS_APPLICATION` 指定的应用名，默认从_server_meta.yaml中读取
