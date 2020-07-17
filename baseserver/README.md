@@ -3,7 +3,7 @@
 ## 部署步骤
 
 1. 前置工作
-   - 安装kubernates，可以使用kubectl或其他方式来管理集群
+   - 安装kubernates，可以使用kubectl或其他方式来管理集群
    - 能执行docker命令行的终端
 
 2. 部署tars db
