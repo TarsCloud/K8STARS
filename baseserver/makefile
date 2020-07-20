@@ -1,6 +1,6 @@
 SERVER ?= tarsstat
 IMG_REPO ?= ccr.ccs.tencentyun.com/tarsbase
-PWD = $(shell PWD)
+PWD = $(shell pwd)
 
 deploy:
 	mkdir -p deploy
