@@ -33,7 +33,7 @@
    - tars.conf: 将registry.tars.com改成tars registry的service ip或域名
    - webConf.js: 将dbConf的信息改成db_tars_web实际的访问地址和账号
 
-   再修改`deploy/deply/web/demon/config`中的以下配置：
+   再修改`deploy/deply/web/demo/config`中的以下配置：
    - webConf.js: 将dbConf的信息改成db_tars_web实际的访问地址和账号
 
    然后运行`make web`生成tarsweb的镜像，然后在k8s中部署这个镜像即可，不需要额外的配置。
