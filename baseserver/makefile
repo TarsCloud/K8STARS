@@ -4,7 +4,7 @@ PWD = $(shell pwd)
 
 deploy:
 	mkdir -p deploy
-	docker run --entrypoint '' --rm -v ${PWD}/deploy:/deploy tarscloud/framework cp -rf /usr/local/tars/cpp/deploy/ /deploy
+	docker run --entrypoint '' --rm -v ${PWD}/deploy:/deploy tarscloud/framework:v2.4.3 cp -rf /usr/local/tars/cpp/deploy/ /deploy
 	rm -rf ./deploy/deploy/web//node_modules/.bin/
 
 
