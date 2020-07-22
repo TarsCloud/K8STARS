@@ -1,12 +1,12 @@
 
 BUILD_IMG ?= ccr.ccs.tencentyun.com/tarsbase/tarsweb:latest
 
-web-files:
-	mkdir -p web
-	cp -rf ../deploy/deploy/web/* web/
+TarsWeb:
+	rm -rf TarsWeb && mkdir -p TarsWeb
+	git clone -b k8stars https://github.com/defool/TarsWeb
 
-img: web-files
+img: TarsWeb
 	docker build -t ${BUILD_IMG} .
 
 clean:
-	rm -rf web
+	rm -rf TarsWeb

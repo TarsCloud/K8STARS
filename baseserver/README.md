@@ -27,17 +27,8 @@
    使用`kubectl apply -f registry.yaml`部署tars registry。
    如果没用k8s创建的db，请修改`registry.yaml`中的数据地址。
 
-4. tarsweb和tarsweb-admin
-   先修改`deploy/deply/web/config`中的以下配置：
-   - loginConf.js: 将baseUserCenterUrl和baseLoginUrl中的localhost改成实际访问的域名或service ip地址
-   - tars.conf: 将registry.tars.com改成tars registry的service ip或域名
-   - webConf.js: 将dbConf的信息改成db_tars_web实际的访问地址和账号
-
-   再修改`deploy/deply/web/demo/config`中的以下配置：
-   - webConf.js: 将dbConf的信息改成db_tars_web实际的访问地址和账号
-
-   然后运行`make web`生成tarsweb的镜像，然后在k8s中部署这个镜像即可，不需要额外的配置。
-
+4. tarsweb
+   使用`kubectl apply -f tarsweb.yaml`部署。
    tarsweb默认使用3000端口，可以配置对应的访问方式，通过浏览器来访问。
    说明：当前tarsweb版本未兼容k8s中的场景，页面中有重启/停止等入口，但是操作会失败。
 

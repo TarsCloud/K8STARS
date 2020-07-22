@@ -21,7 +21,8 @@ registry: deploy
 	docker build -f tarsregistry/Dockerfile -t $(IMG_REPO)/tarsregistry:latest .
 	docker build -f cppregistry/Dockerfile  -t $(IMG_REPO)/cppregistry:latest  .
 
-web: deploy
+web:
+	cp default.env tarsweb/
 	cd tarsweb && make img
 
 clean:

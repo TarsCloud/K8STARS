@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: tars-web
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -14,8 +14,12 @@ spec:
     spec:
       containers:
       - name: tars-web
-        image: tarsweb:latest
-        imagePullPolicy: IfNotPresent
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsweb:latest
         ports:
           - containerPort: 3000
-          - containerPort: 3001
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_HOST
