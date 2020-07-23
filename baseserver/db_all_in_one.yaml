@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tars-db-all-in-one
+  labels:
+    app: tars-db-all-in-one
 spec:
   selector:
     matchLabels:
