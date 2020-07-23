@@ -33,7 +33,7 @@
    说明：当前tarsweb版本未兼容k8s中的场景，页面中有重启/停止等入口，但是操作会失败。
 
 5. 部署其他服务
-   以`tarsnotify`为例，使用`kubectl apply -f registry.ymal`来部署。其中数据库相关配置可以按需要替换。
+   以`tarsnotify`为例，使用`kubectl apply -f tarsnotify.ymal`来部署。其中数据库相关配置可以按需要替换。
    其他服务可以使用同一方式来部署，将tarsnotify替换成其他服务即可。其他服务有：
    1. tarslog
    2. tarsconfig
