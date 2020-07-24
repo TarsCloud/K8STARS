@@ -28,14 +28,14 @@
 3. tars registry 
 
    Use `kubectl apply -f yaml/registry.yaml` to deploy tars registry. 
-   If your k8s was not used in the process of creating the db, please edit the data path in the `registry.yaml` file accordingly.
+   If you didn't use k8s when creating the db, please edit the data path in the `registry.yaml` file accordingly.
 
 4. tarsweb
 
    Use `kubectl apply -f yaml/tarsweb.yaml` to deploy. 
-   By default tarsweb uses port 3000，Or you may use a method of your choice, and check the status on your browser.
+   By default tarsweb uses port 3000，Or you may use a method of your choice, and check the status on your browser. （At the moment, please use NodePort to map to external network 30000 port. Assess tarsweb via http://xxx.xxx.xxx.xxx:30000 ）
    
-   Note: when the current tarsweb version is not compatible with k8s' scenarios, the page has restart/stop options, but they will not execute successfully.
+   Note: the current tarsweb version is not compatible with k8s' scenarios, the restart/stop options on the webpage will not execute successfully.
 
 5. Deploying other services
 
