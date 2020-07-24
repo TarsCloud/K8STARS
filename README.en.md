@@ -36,7 +36,7 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
   * `TARS_START_PATH`: Services’ starting script and it is TARS_PATH/bin/start.sh by default
   * `TARS_STOP_PATH`: services’ stopping script, and by default kills all the processes under $TARS_PATH 
   * `TARS_REPORT_INTERVAL` is the time it takes to report heartbeat to registry 
-  * `TARS_DISABLE_FLOW`注册到registry时是否开启流量，非空表示关闭，默认开启 
+  * `TARS_DISABLE_FLOW`is disabled by default
   * `TARS_CHECK_INTERVAL`: the time it takes to check the server status. If the status changes, it will be synced to registry.
   * `TARS_BEFORE_CHECK_SCRIPT`: it is the shell script that runs before each examination. 
   * `TARS_CHECK_SCRIPT_TIMEOUT`: the timeout before each shell script execution. 
