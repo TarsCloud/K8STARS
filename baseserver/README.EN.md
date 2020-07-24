@@ -14,7 +14,7 @@
       make deploy
 
       // Create a MySQL database (in practice, a cloud db is recommended)  
-      kubectl apply -f db_all_in_one.yaml
+      kubectl apply -f yaml/db_all_in_one.yaml
 
       // Acquire the names of the database with following command 
       kubectl get pods | grep tars-db
@@ -27,20 +27,20 @@
 
 3. tars registry 
 
-   Use `kubectl apply -f registry.yaml` to deploy tars registry. 
+   Use `kubectl apply -f yaml/registry.yaml` to deploy tars registry. 
    If your k8s was not used in the process of creating the db, please edit the data path in the `registry.yaml` file accordingly.
 
 4. tarsweb
 
-   Use `kubectl apply -f tarsweb.yaml` to deploy. 
+   Use `kubectl apply -f yaml/tarsweb.yaml` to deploy. 
    By default tarsweb uses port 3000，Or you may use a method of your choice, and check the status on your browser.
    
    Note: when the current tarsweb version is not compatible with k8s' scenarios, the page has restart/stop options, but they will not execute successfully.
 
 5. Deploying other services
 
-   In tarsnotify for instance, please use `kubectl apply -f registry.ymal` to deploy. All db configurations can be edited accordingly. 
-    All other services can be deployed in this fashion，as you may simply change `tarsnotify` to your desired service.  Currently available services：
+   In `tarsnotify` for instance, please use `kubectl apply -f yaml/registry.yaml` to deploy. All db configurations can be edited accordingly. 
+    All other services can be deployed in this fashion，as you may simply change `tarsnotify` to your desired service. Currently available services：
       1. tarslog
       2. tarsconfig
       3. tarsproperty
