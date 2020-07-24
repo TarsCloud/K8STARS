@@ -31,7 +31,9 @@
 4. tarsweb
    
    使用`kubectl apply -f yaml/tarsweb.yaml`部署。
-   tarsweb默认使用3000端口，可以根据实际使用情况，配置对应的访问方式，通过浏览器来访问。（ 当前使用NodePort方式映射至外网30000端口，访问http://tarsweb所在Node的外网IP:30000 ）
+   
+   tarsweb默认使用3000端口，可以根据实际使用情况，配置对应的访问方式，通过浏览器来访问。（ 当前使用NodePort方式映射至外网30000端口，通过 http://tarsweb所在Node的外网IP:30000 访问tarsweb）
+   
    说明：当前tarsweb版本未兼容k8s中的场景，页面中有重启/停止等入口，但是操作会失败。
 
 5. 部署其他服务
