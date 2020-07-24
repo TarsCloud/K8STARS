@@ -3,7 +3,7 @@
 ## 部署步骤
 
 1. 前置工作
-   - 安装kubernates，可以使用kubectl或其他方式来管理集群
+   - 安装kubernetes，可以使用kubectl或其他方式来管理集群
    - 能执行docker命令行的终端
 
 2. 部署tars db
@@ -33,7 +33,7 @@
    说明：当前tarsweb版本未兼容k8s中的场景，页面中有重启/停止等入口，但是操作会失败。
 
 5. 部署其他服务
-   以`tarsnotify`为例，使用`kubectl apply -f yaml/tarsnotify.ymal`来部署。其中数据库相关配置可以按需要替换。
+   以`tarsnotify`为例，使用`kubectl apply -f yaml/tarsnotify.yaml`来部署。其中数据库相关配置可以按需要替换。
    其他服务可以使用同一方式来部署，将tarsnotify替换成其他服务即可。其他服务有：
    1. tarslog
    2. tarsconfig
