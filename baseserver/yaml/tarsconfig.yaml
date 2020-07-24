@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarsconfig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarsconfig
+  template:
+    metadata:
+      labels:
+        app: tarsconfig
+    spec:
+      containers:
+      - name: tarsconfig
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsconfig:latest
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_HOST
+        livenessProbe:
+            exec:
+              command: ["tarscli", "hzcheck"]
+            initialDelaySeconds: 5
+            timeoutSeconds: 6
+            periodSeconds: 8
+        lifecycle:
+          preStop:
+            exec:
+              command: ["tarscli", "prestop"]

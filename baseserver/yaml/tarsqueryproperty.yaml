@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarsqueryproperty
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarsqueryproperty
+  template:
+    metadata:
+      labels:
+        app: tarsqueryproperty
+    spec:
+      containers:
+      - name: tarsqueryproperty
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsqueryproperty:latest
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_HOST
+        livenessProbe:
+            exec:
+              command: ["tarscli", "hzcheck"]
+            initialDelaySeconds: 5
+            timeoutSeconds: 6
+            periodSeconds: 8
+        lifecycle:
+          preStop:
+            exec:
+              command: ["tarscli", "prestop"]
