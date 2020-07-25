@@ -5,8 +5,7 @@ GOBUILD      := go build
 DOCKER_BUILD := docker build
 
 REPO         ?= ccr.ccs.tencentyun.com/tarsbase
-#VERSION  ?= $(shell date "+%Y%m%d%H%M%S")
-VERSION ?= "latest"
+VERSION  ?= $(shell date "+%Y%m%d%H%M%S")
 
 LOWCASE_TARGET := $(shell echo $(TARGET) | tr '[:upper:]' '[:lower:]')
 IMG_REPO       := $(REPO)/$(LOWCASE_TARGET)
