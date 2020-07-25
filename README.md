@@ -17,12 +17,18 @@ k8stars是便于将tars服务运行在容器中的方案。
    参考[baseserver](./baseserver)的说明部署tars registry
 
 2. 部署服务示例
-   
-   ```cd examples/simple && kubectl apply -f simpleserver.yaml```
-   示例说明：
-   - 镜像由examples/simple/Dockerfile文件制作，基础镜像由cmd/tarscli/Dockerfile制作
-   - start.sh中的`tarscli genconf`用于生成tars服务启动配置
-   - _server_meta.yaml文件用于配置服务的元数据，字段信息可以参考app/genconf/config.go中的`ServerConf`结构体。endpoint默认为`tcp -h ${local_ip} -p ${random_port}`，支持自动填入IP和随机端口。
+   - 部署示例simpleserver
+
+     ```cd examples/simple && kubectl apply -f simpleserver.yaml```
+
+     示例说明：
+     - 镜像由 `examples/simple/Dockerfile` 文件制作，基础镜像由 `cmd/tarscli/Dockerfile` 制作
+     - start.sh中的`tarscli genconf`用于生成tars服务启动配置
+     - _server_meta.yaml文件用于配置服务的元数据，字段信息可以参考 `app/genconf/config.go` 中的 `ServerConf` 结构体。endpoint默认为`tcp -h ${local_ip} -p ${random_port}`，支持自动填入IP和随机端口。
+
+    - 基于Go语言的 HelloWorld 程序 TestApp.HelloGo
+    
+      详细查看 [examples/README.md](examples)
 
 
 3. 验证部署
