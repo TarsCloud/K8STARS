@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellogo
+spec:
+  selector:
+    matchLabels:
+      app: hellogo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hellogo
+    spec:
+      containers:
+      - name: hellogo
+        image: ccr.ccs.tencentyun.com/tarsbase/hellogo:latest
+        imagePullPolicy: IfNotPresent 
+        lifecycle:
+          preStop:
+            exec:
+              command: ["tarscli", "prestop"]
+        readinessProbe:
+          exec:
+            command: ["tarscli", "hzcheck"]
+          initialDelaySeconds: 2
+          timeoutSeconds: 8
+          periodSeconds: 6
