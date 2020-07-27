@@ -26,7 +26,7 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
 * ${TARS_PATH}/data: provide execution status and cache files
  
 ## tarscli description
-`tarscli` provides a set of command tools to help with tars services’ containerized deployment. If you want to designate the parameters, please refer to tarscli help. Below are the sub commands tarscli supports: 
+`tarscli` provides a set of command tools to help with tars services’ containerized deployment. If you want to designate the parameters, please refer to `tarscli help`. Below are the sub commands tarscli supports: 
 * genconf is used to create tars services’ starting configuration files. The supported environment variables include: 
   * `TARS_APPLICATION` : the application name, which comes from _server_meta.yaml by default. 
   * `TARS_SERVER`: the server name, which is read from _server_meta.yaml. 
