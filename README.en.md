@@ -16,7 +16,7 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
   * `tarscli genconf` in start.sh will be used to generate tars services’ starting configuration. 
   * The file _server_meta.yaml is used to configure services’ metadata. You can refer to the structure of ServerConf in app/genconf/config.go for the field information. The endpoint is `tcp -h ${local_ip} -p ${random_port}` by default and supports automatically filling in IP and random ports. 
   * You can also find a demo HelloWorld program TestApp.Hello in Go language in the repository
-    * Please refer to examples/README.md
+    * Please refer to [examples/README.md](https://github.com/TarsCloud/K8STARS/tree/master/examples)
 3. To confirm if deployment is successfully, log into db_tars and execute select * from t_server_conf\G. You should see that the simpleserver’s node information is registered. 
 ## TARS Deployment Directories
 `tarscli` manages services based on the environment variables in `TARS_PATH`, the function of each directory is as follows: 
