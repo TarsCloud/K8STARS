@@ -1,6 +1,5 @@
 # k8stars
 K8stars is a solution to deploy TARS in a Kubernetes environment and it has the following features: 
-<<<<<<< HEAD
 * Maintain the same functionality of TARS Framework in a container
 * Support TARS naming service and configuration management 
 * Support a smooth transfer of TARS services into container orchestrations such as K8S. 
