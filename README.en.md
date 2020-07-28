@@ -20,10 +20,10 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
 3. To confirm if deployment is successfully, log into db_tars and execute `select * from t_server_conf\G`. You should see that the simpleserver’s node information is registered. 
 ## TARS Deployment Directories
 `tarscli` manages services based on the environment variables in `TARS_PATH`, the function of each directory is as follows: 
-* ${TARS_PATH}/bin: start scripts and binary files
-* ${TARS_PATH}/conf: configure files
-* ${TARS_PATH}/log: store log files
-* ${TARS_PATH}/data: provide execution status and cache files
+* ${TARS_PATH}/bin: to start scripts and binary files
+* ${TARS_PATH}/conf: to configure files
+* ${TARS_PATH}/log: to store log files
+* ${TARS_PATH}/data: to provide execution status and cache files
  
 ## tarscli description
 `tarscli` provides a set of command tools to help with tars services’ containerized deployment. If you want to designate the parameters, please refer to `tarscli help`. Below are the sub commands tarscli supports: 
