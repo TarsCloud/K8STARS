@@ -3,7 +3,7 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
 * Maintain the same functionality of TARS Framework in a container
 * Support TARS naming service and configuration management 
 * Support a smooth transfer of TARS services into container orchestrations such as K8S. 
-* non-invasive; there isn’t a coupling between the deployment environment and the services
+* Non-invasive; there isn’t a coupling between the deployment environment and the services
 ## The solution
 1. Add 3 interfaces in Tarsregistry for naming service, heartbeat report, and disabling nodes. 
 2. Build a `tarscli` (command line tool) for assigning ports, generating configurations, reporting heartbeats, and retiring nodes. 
