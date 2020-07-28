@@ -20,10 +20,10 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
 3. To confirm if deployment is successfully, log into db_tars and execute `select * from t_server_conf\G`. You should see that the simpleserver’s node information is registered. 
 ## TARS Deployment Directories
 `tarscli` manages services based on the environment variables in `TARS_PATH`, the function of each directory is as follows: 
-* ${TARS_PATH}/bin: start scripts and binary files
-* ${TARS_PATH}/conf: configure files
-* ${TARS_PATH}/log: store log files
-* ${TARS_PATH}/data: provide execution status and cache files
+* ${TARS_PATH}/bin: to start scripts and binary files
+* ${TARS_PATH}/conf: to configure files
+* ${TARS_PATH}/log: to store log files
+* ${TARS_PATH}/data: to provide execution status and cache files
  
 ## tarscli description
 `tarscli` provides a set of command tools to help with tars services’ containerized deployment. If you want to designate the parameters, please refer to `tarscli help`. Below are the sub commands tarscli supports: 
@@ -34,7 +34,7 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
   * `TARS_LOCATOR` can designate the address of registry, and the default path is tars-registry.default.svc.cluster.local -p 17890 (service’s address) 
   * `TARS_SET_ID`: can designate the service set. 
   * `TARS_MERGE_CONF` can configure the template file, and merge it into the service’s starting configuration file. 
-* Supervisor, by default, executes genconf commands first, and then starts/monitors services. The supported environment variables include: 
+* `Supervisor`, by default, executes genconf commands first, and then starts/monitors services. The supported environment variables include: 
   * `TARS_START_PATH`: Services’ starting script and it is TARS_PATH/bin/start.sh by default
   * `TARS_STOP_PATH`: services’ stopping script, and by default kills all the processes under $TARS_PATH 
   * `TARS_REPORT_INTERVAL` is the time it takes to report heartbeat to registry 
@@ -43,9 +43,9 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
   * `TARS_BEFORE_CHECK_SCRIPT`: it is the shell script that runs before each examination. 
   * `TARS_CHECK_SCRIPT_TIMEOUT`: the timeout before each shell script execution. 
   * `TARS_PRESTOP_WAITTIME`: the wait time period before shutting-stopping services and it makes sure nothing is lost afterward. The default is set to 80 seconds
-* hzcheck is used to synced service status and the status of k8s’ pod and it needs to set pod’s readiness probe to tarscli hzcheck.
-* prestop is used to delete the corresponding configurations before services end
+* `hzcheck` is used to synced service status and the status of k8s’ pod and it needs to set pod’s readiness probe to tarscli hzcheck.
+* `prestop` is used to delete the corresponding configurations before services end
   * `TARS_PRESTOP_WAITTIME`: the wait time period before shutting-stopping services and it makes sure nothing is lost afterward. The default is set to 80 seconds
-* notify is used to send management commands. An example of commonly used commands is tars.setloglevel/tars.pprof.
+* `notify` is used to send management commands. An example of commonly used commands is tars.setloglevel/tars.pprof.
  
  
