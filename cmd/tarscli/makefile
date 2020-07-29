@@ -1,7 +1,8 @@
 GOBUILD := GOOS=linux go build
+VERSION := $(shell date "+%Y%m%d%H%M%S")
 
 ALL:
-	$(GOBUILD) -o tarscli
+	$(GOBUILD) -ldflags "-X main.VERSION=$(VERSION)" -o tarscli
 
 img: ALL
 	docker build -t ccr.ccs.tencentyun.com/tarsbase/tarscli .

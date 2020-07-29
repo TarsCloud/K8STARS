@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/TarsCloud/TarsGo/tars/util/rogger"
 	"github.com/tarscloud/k8stars/app/genconf"
 	"github.com/tarscloud/k8stars/app/hzcheck"
 	"github.com/tarscloud/k8stars/app/notify"
@@ -11,12 +12,9 @@ import (
 	"github.com/tarscloud/k8stars/app/supervisor"
 	"github.com/tarscloud/k8stars/app/syncdir"
 	"github.com/tarscloud/k8stars/tinycli"
-	"github.com/TarsCloud/TarsGo/tars/util/rogger"
-
-	_ "go.uber.org/automaxprocs"
 )
 
-const VERSION = "0.0.4"
+var VERSION string = "unstable"
 
 func main() {
 	if len(os.Args) == 2 && os.Args[1] == "version" {

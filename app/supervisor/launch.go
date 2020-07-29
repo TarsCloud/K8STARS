@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/tarscloud/k8stars/algorithm/recentuse"
@@ -13,6 +14,7 @@ import (
 	"github.com/tarscloud/k8stars/consts"
 	"github.com/tarscloud/k8stars/logger"
 	"github.com/tarscloud/k8stars/tinycli"
+	"go.uber.org/automaxprocs/maxprocs"
 )
 
 var (
@@ -34,6 +36,8 @@ type launchCmd struct {
 	waitStopTime         time.Duration
 	disableFlow          string
 	onExitChan           chan bool
+
+	originStdout *os.File
 }
 
 // NewCmd returns an instances of launchCmd
@@ -109,8 +113,8 @@ func (c *launchCmd) restartSever() {
 
 func (c *launchCmd) startSever() {
 	cmd := exec.Command("sh", "-c", c.startPath)
-	p := filepath.Join(consts.TarsPath, "log", "start.log")
-	outfile, err := os.Create(p)
+	startLog := filepath.Join(consts.TarsPath, "log", "start.log")
+	outfile, err := os.Create(startLog)
 	if err == nil {
 		cmd.Stderr = outfile
 		cmd.Stdout = outfile
@@ -126,6 +130,12 @@ func (c *launchCmd) startSever() {
 			outfile.Close()
 		}
 		c.onExitChan <- true
+
+		// print to stdout for troubleshooting
+		if c.originStdout != nil {
+			_, out := tailFile(startLog, 64*1024)
+			c.originStdout.Write(out)
+		}
 	}()
 }
 
@@ -195,10 +205,12 @@ func (c *launchCmd) registerServer() error {
 
 // Start run the command
 func (c *launchCmd) Start() error {
+
 	// redirect stderr/stderr to supervisor.log
 	p := filepath.Join(consts.TarsPath, "log", "supervisor.log")
 	outfile, err := os.Create(p)
 	if err == nil {
+		c.originStdout = os.Stdout
 		os.Stderr = outfile
 		os.Stdout = outfile
 	}
@@ -207,6 +219,14 @@ func (c *launchCmd) Start() error {
 			outfile.Close()
 		}
 	}()
+
+	maxprocs.Set(maxprocs.Logger(func(format string, args ...interface{}) {
+		if outfile != nil {
+			outfile.WriteString(fmt.Sprintf(format, args))
+			outfile.WriteString("\n")
+		}
+	}))
+	os.Setenv("GOMAXPROCS", fmt.Sprint(runtime.GOMAXPROCS(0)))
 
 	genconf := &tinycli.App{
 		Cmd: genconf.NewCmd(),

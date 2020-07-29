@@ -15,7 +15,7 @@ build:
 	GOOS=linux $(GOBUILD) -o $(TARGET)
 
 img: build
-	$(DOCKER_BUILD) --build-arg SERVER=$(TARGET) -t $(IMG_REPO):$(VERSION) .
+	$(DOCKER_BUILD) --build-arg SERVER=$(TARGET) --build-arg SERVER_VERSION=$(VERSION) -t $(IMG_REPO):$(VERSION) .
 
 tgz: build
 	tar czf $(TARGET).tgz $(TARGET) _server_meta.yaml
