@@ -52,7 +52,7 @@ k8stars是便于将tars服务运行在 Kubernetes 中的方案。
      - `TARS_SET_ID`可以指定服务set
      - `TARS_MERGE_CONF`可指定配置模板文件，并将配置合并到服务的启动配置文件中
   
-   - `supervisor` 默认执行先genconf命令，再启动并监控服务。支持的环境变量有：
+   - `supervisor` 默认执行先`genconf`命令，再启动并监控服务。支持的环境变量有：
      - `TARS_START_PATH`服务的启动脚本，默认是`$TARS_PATH/bin/start.sh`
      - `TARS_STOP_PATH`服务的停止脚本，默认是kill在`$TARS_PATH`路径下的所有服务进程
      - `TARS_REPORT_INTERVAL`上报心跳到registry的时间间隔
