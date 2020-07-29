@@ -1,5 +1,5 @@
 # k8stars
-k8stars是便于将tars服务运行在容器中的方案。
+k8stars是便于将tars服务运行在 Kubernetes 中的方案。
 
 ## 特性
 - 保持tars原生的开发框架能力
@@ -32,29 +32,29 @@ k8stars是便于将tars服务运行在容器中的方案。
 
 
 3. 验证部署
-   登录db_tars，然后执行`select * from t_server_conf\G`可以看到simpleserver的节点信息已自动注册。
+   登录`db_tars`，然后执行`select * from t_server_conf\G`可以看到simpleserver的节点信息已自动注册。
 
 ## tars部署目录结构
 `tarscli`基于环境变量`TARS_PATH`（默认/tars）来管理服务，各目录功能：
-   - ${TARS_PATH}/bin：启动脚本和二进制文件
-   - ${TARS_PATH}/conf：配置文件
-   - ${TARS_PATH}/log：log文件
-   - ${TARS_PATH}/data：运行状态/缓存文件
+   - `${TARS_PATH}/bin`：启动脚本和二进制文件
+   - `${TARS_PATH}/conf`：配置文件
+   - `${TARS_PATH}/log`：log文件
+   - `${TARS_PATH}/data`：运行状态/缓存文件
 
 ## 关于tarscli
-   `tarscli`提供了一组命令工具，方便tars服务的容器化部署，可通过环境变量来指定参数，详细说明见`tarscli help`。
+   `tarscli`提供了一组命令工具，方便tars服务的容器化部署，可通过环境变量来指定参数，详细说明见`tarscli help`。
    以下是tarscli支持的子命令
-   - genconf 用于生成tars服务的启动配置文件。支持的环境变量有：
-     - `TARS_APPLICATION` 指定的应用名，默认从_server_meta.yaml中读取
-     - `TARS_SERVER` 指定的服务名，默认从_server_meta.yaml中读取
+   - `genconf` 用于生成tars服务的启动配置文件。支持的环境变量有：
+     - `TARS_APPLICATION` 指定的应用名，默认从`_server_meta.yaml`中读取
+     - `TARS_SERVER` 指定的服务名，默认从`_server_meta.yaml`中读取
      - `TARS_BUILD_SERVER`编译时的服务名，编译的服务名与运行的服务名不同时会用到
      - `TARS_LOCATOR`可以指定registry的地址，默认是`tars-registry.default.svc.cluster.local -p 17890`（service的地址）
      - `TARS_SET_ID`可以指定服务set
      - `TARS_MERGE_CONF`可指定配置模板文件，并将配置合并到服务的启动配置文件中
   
-   - supervisor 默认执行先genconf命令，再启动并监控服务。支持的环境变量有：
-     - `TARS_START_PATH`服务的启动脚本，默认是$TARS_PATH/bin/start.sh
-     - `TARS_STOP_PATH`服务的停止脚本，默认是kill在$TARS_PATH路径下的所有服务进程
+   - `supervisor` 默认执行先genconf命令，再启动并监控服务。支持的环境变量有：
+     - `TARS_START_PATH`服务的启动脚本，默认是`$TARS_PATH/bin/start.sh`
+     - `TARS_STOP_PATH`服务的停止脚本，默认是kill在`$TARS_PATH`路径下的所有服务进程
      - `TARS_REPORT_INTERVAL`上报心跳到registry的时间间隔
      - `TARS_DISABLE_FLOW`注册到registry时是否开启流量，非空表示关闭，默认开启
      - `TARS_CHECK_INTERVAL`检查服务状态的时间间隔，如果状态有变化会实时同步到regitry
@@ -62,8 +62,8 @@ k8stars是便于将tars服务运行在容器中的方案。
      - `TARS_CHECK_SCRIPT_TIMEOUT`每次检查前运行shell命令的超时时间
      - `TARS_PRESTOP_WAITTIME`关流量-停止服务前的等待时间，用于无损变更，默认80秒
   
-   - hzcheck 用于同步服务状态和k8s的pod状态，需要将pod的readiness probe设为tarscli hzcheck命令
-   - prestop 用于在服务退出前删除在registry对应的配置
+   - hzcheck 用于同步服务状态和k8s的pod状态，需要将pod的`readiness probe`设为tarscli `hzcheck`命令
+   - prestop 用于在服务退出前删除在registry对应的配置
      - `TARS_PRESTOP_WAITTIME`关流量-停止服务前的等待时间，用于无损变更，默认80秒
    - notify 用于发送管理命令，常用命令有：tars.setloglevel/tars.pprof等
 
