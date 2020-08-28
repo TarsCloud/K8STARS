@@ -43,7 +43,7 @@ func (m *mysqlDriver) RegisterServer(ctx context.Context, conf *ServerConf) erro
 	 )
 	 ON DUPLICATE KEY UPDATE patch_version=?, present_state=?, 
 	 enable_set=?, set_name=?, set_area=?, set_group=?, grid_flag=?,
-	 server_type="tars_cpp", present_state="active", registry_timestamp=CURRENT_TIMESTAMP(), patch_time=CURRENT_TIMESTAMP(), posttime=CURRENT_TIMESTAMP()
+	 server_type="tars_cpp", setting_state="active", registry_timestamp=CURRENT_TIMESTAMP(), patch_time=CURRENT_TIMESTAMP(), posttime=CURRENT_TIMESTAMP()
 	 `
 	_, err := m.db.ExecContext(ctx, sql, conf.Application, conf.Server, conf.NodeName, conf.Version, conf.State,
 		conf.EnableSet, conf.SetName, conf.SetGroup, conf.SetArea, conf.GridFlag,

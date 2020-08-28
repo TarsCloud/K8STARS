@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"github.com/tarscloud/k8stars/tarsregistry/store"
@@ -17,7 +18,7 @@ type registryImp struct {
 func (r *registryImp) OnStartup(ctx context.Context, Req *Tars.OnStartupReq) (err error) {
 	// register node
 	if err := r.driver.RegisterNode(ctx, Req.NodeName); err != nil {
-		return err
+		return fmt.Errorf("RegisterNode error %v", err)
 	}
 
 	// register server
@@ -41,7 +42,7 @@ func (r *registryImp) OnStartup(ctx context.Context, Req *Tars.OnStartupReq) (er
 		sConf.EnableSet = "Y"
 	}
 	if err := r.driver.RegisterServer(ctx, sConf); err != nil {
-		return err
+		return fmt.Errorf("RegisterServer error %v", err)
 	}
 
 	// register adapter
@@ -63,7 +64,7 @@ func (r *registryImp) OnStartup(ctx context.Context, Req *Tars.OnStartupReq) (er
 		}
 	}
 	if err := r.driver.RegistryAdapter(ctx, adapters); err != nil {
-		return err
+		return fmt.Errorf("RegistryAdapter error %v", err)
 	}
 	return nil
 }

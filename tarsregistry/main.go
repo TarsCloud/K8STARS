@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/TarsCloud/TarsGo/tars"
 	"github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 	mtars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 	"github.com/tarscloud/k8stars/tarsregistry/store"
-	"github.com/TarsCloud/TarsGo/tars"
 )
 
 var (
@@ -35,6 +35,8 @@ func main() {
 		Application: cfg.App,
 		Server:      cfg.Server,
 		SetID:       cfg.Setdivision,
+		State:       "active",
+		Version:     os.Getenv("SERVER_VERSION"),
 	}
 	obj := cfg.App + "." + cfg.Server + ".Registry"
 	for _, v := range cfg.Adapters {
