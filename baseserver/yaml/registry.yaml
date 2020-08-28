@@ -7,7 +7,6 @@ data:
   DB_PORT: "3306"
   DB_USER: root
   DB_PASS: pass
-  DB_DSN: "root:pass@tcp(tars-db.default.svc.cluster.local:3306)/db_tars"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -54,11 +53,26 @@ spec:
       - name: tars-registry
         image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:latest
         env:
-        - name: DB_DSN
-          valueFrom:
-            configMapKeyRef:
-              name: tars-db-config
-              key: DB_DSN
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_HOST
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_PORT
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_USER
+          - name: DB_PASS
+            valueFrom:
+              configMapKeyRef:
+                name: tars-db-config
+                key: DB_PASS
 ---
 apiVersion: v1
 kind: Service
