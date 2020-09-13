@@ -40,6 +40,7 @@ func (c *genConfCmd) InitFlag(setter tinycli.EnvFlagSetter) {
 	setter.SetString("TARS_SET_ID", &c.svrConf.SetID, c.svrConf.SetID, "SetID of server")
 	setter.SetString("TARS_LOCATOR", &c.svrConf.Locator, c.svrConf.Locator, "Object and endpoint of locator")
 	setter.SetString("TARS_MERGE_CONF", &c.mergeConf, c.mergeConf, "Config file path to merge to config")
+	setter.SetInt("TARS_EP_UPTIME", &c.svrConf.RefreshEndpointInterval, c.svrConf.RefreshEndpointInterval, "Interval(seconds) of refreshing endpoints")
 }
 
 // Start run command in background

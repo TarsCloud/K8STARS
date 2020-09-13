@@ -173,14 +173,14 @@ func generateConf(sConf *ServerConf, buildServer, mergeConf string) error {
 		obj := fmt.Sprintf("%s.%s.%s", sConf.Application, sConf.Server, sv.Object)
 		servant += fmt.Sprintf(`        <%sAdapter>
 		    allow
-			handlegroup = %sAdapter
-			servant = %s
-			endpoint = %s
-			maxconns = %d
-			protocol = %s
-			queuecap = %d
-			queuetimeout = %d
-			threads = %d
+			handlegroup=%sAdapter
+			servant=%s
+			endpoint=%s
+			maxconns=%d
+			protocol=%s
+			queuecap=%d
+			queuetimeout=%d
+			threads=%d
         </%sAdapter>
 `, obj, obj, obj, sv.Endpoint, sv.MaxConns, sv.Protocol, sv.QueueCap, sv.QueueTimeout, sv.Threads, obj)
 	}
@@ -227,90 +227,90 @@ func generateConf(sConf *ServerConf, buildServer, mergeConf string) error {
 var templateStr = `<tars>
 <application>
     #是否启用SET分组
-	enableset = {{.EnableSet}}
+	enableset={{.EnableSet}}
 	
     #SET分组的全名.(mtt.s.1)
-    setdivision = {{.Conf.SetID}}
+    setdivision={{.Conf.SetID}}
     <client>
         # registry地址
-		locator = {{.Conf.Locator}}
+		locator={{.Conf.Locator}}
 		
         #同步调用超时时间,缺省3s(毫秒)
-		sync-invoke-timeout = {{.Conf.SyncInvokeTimeout}}
+		sync-invoke-timeout={{.Conf.SyncInvokeTimeout}}
 		
         #异步超时时间,缺省5s(毫秒)
-		async-invoke-timeout = {{.Conf.AsyncInvokeTimeout}}
+		async-invoke-timeout={{.Conf.AsyncInvokeTimeout}}
 		
         #重新获取服务列表时间间隔(毫秒)
-		refresh-endpoint-interval = {{.Conf.RefreshEndpointInterval}}
+		refresh-endpoint-interval={{.Conf.RefreshEndpointInterval}}
 		
         #模块间调用服务[可选]
-        stat  = {{.Conf.StatObj}}
+        stat ={{.Conf.StatObj}}
 
         #属性上报服务[可选]
-        property = {{.Conf.PropertyObj}}
+        property={{.Conf.PropertyObj}}
 
         #上报间隔时间,默认60s(毫秒)
-        report-interval = {{.Conf.ReportInterval}}
+        report-interval={{.Conf.ReportInterval}}
 
         #stat采样比1:n 例如sample-rate为1000时 采样比为千分之一
-        sample-rate = {{.Conf.SampleRate}}
+        sample-rate={{.Conf.SampleRate}}
 
         #1分钟内stat最大采样条数
-        max-sample-count = {{.Conf.MaxSampleCount}}
+        max-sample-count={{.Conf.MaxSampleCount}}
 
         #网络异步回调线程个数
-        asyncthread = {{.Conf.AsyncThreadNum}}
+        asyncthread={{.Conf.AsyncThreadNum}}
 
         #模块名称
-        modulename = {{.Conf.Application}}.{{.Conf.Server}}
+        modulename={{.Conf.Application}}.{{.Conf.Server}}
     </client>
         
     <server>
         #应用名称
-        app = {{.Conf.Application}}
+        app={{.Conf.Application}}
 
         #服务名称
-        server = {{.Conf.Server}}
+        server={{.Conf.Server}}
 
         #本地ip
-		localip = {{.LocalIP}}
+		localip={{.LocalIP}}
 		
         #本地ip
-        local = {{.Conf.LocalEndpoint}}
+        local={{.Conf.LocalEndpoint}}
 
         # servant列表信息
 {{.Servant}}
 
         # 服务程序目录
-        basepath = {{.TarsPath}}/bin/
+        basepath={{.TarsPath}}/bin/
         
         # 服务的数据目录,可执行文件,配置文件等
-        datapath = {{.TarsPath}}/data/
+        datapath={{.TarsPath}}/data/
 
         # 日志路径
-        logpath  = {{.TarsPath}}/log/
+        logpath ={{.TarsPath}}/log/
 
         #滚动日志等级默认值
-		logLevel = {{.Conf.LogLevel}}
+		logLevel={{.Conf.LogLevel}}
 		
         # 日志大小
-        logsize = {{.Conf.LogSize}}
+        logsize={{.Conf.LogSize}}
 
         # 日志数量
-        lognum = {{.Conf.LogNum}}
+        lognum={{.Conf.LogNum}}
 
         # 配置中心的地址[可选]
-        config  = {{.Conf.ConfigObj}}
+        config={{.Conf.ConfigObj}}
 
         # 信息中心的地址[可选]
-        notify  = {{.Conf.NotifyObj}}
+        notify={{.Conf.NotifyObj}}
 
         # 远程LogServer[可选]
-        log = {{.Conf.LogObj}}
+        log={{.Conf.LogObj}}
 
         #关闭服务时等待时间
-        deactivating-timeout = {{.Conf.DeactivatingTimeout}}
+        deactivating-timeout={{.Conf.DeactivatingTimeout}}
     </server>          
 </application>
 </tars>
