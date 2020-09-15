@@ -29,15 +29,16 @@ Refer to the instructions in [baseserver](./baseserver) to deploy tarsregistry
      See [examples/README.md](examples)
      
 3. Verify the deployment
-Login ` DB_ Then execute 'select * from t'_ server_ The node information of simpleserver has been registered automatically.
+Login `db_tars` , then execute `select * from t_server_conf\G` The node information of simpleserver has been registered automatically.
 
 ## Tars deployment directory structure
-`Tarscli ` based on environment variable 'tars_ Path '(default / tars) to manage services. The directory functions are as follows:
-- `${TARS_ Path} / bin ': startup scripts and binaries
-- `${TARS_ Path} / conf ': configuration file
-- `${TARS_ Path} / log ': log file
-- `${TARS_ Path} / data ': Runtime / cache file
-##About tarscli
+`tarscli` based on environment variable `TARS_PATH`(default/tars) to manage services. The directory functions are as follows:
+   - `${TARS_PATH}/bin`：Startup scripts and binaries
+   - `${TARS_PATH}/conf`：Configuration file
+   - `${TARS_PATH}/log`： Log file
+   - `${TARS_PATH}/data`：Runtime, Cache file
+
+## About tarscli
 `Tarscli 'provides a set of command tools to facilitate container deployment of TARS services. Parameters can be specified through environment variables. For details, see' tarscli help '.
 Here are the sub commands supported by tarscli
 -'genconf' is used to generate the startup configuration file of the TAS service. The supported environment variables are:
