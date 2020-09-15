@@ -9,30 +9,36 @@ K8STARS is a convenient solution to run TARS services in kubernetes.
 
 ## Implementation scheme
 1. Three interfaces are added in the tarsregistry, which are used for automatic registration, heartbeat reporting and node offline. For details, please refer to [interface definition](./tarsregistry/protocol/tarsregistry.tars)。
+
 2. A 'tarscli' command-line tool is provided to allocate ports, generate configuration, report heartbeat and node offline.
 
 ## Deployment examples
-1. Tarsregistry (name service)
-Refer to the instructions in [baseserver] (. / baseserver) to deploy tar registry
+1. Tarsregistry (name service for TARS Project)
+Refer to the instructions in [baseserver](./baseserver) to deploy tarsregistry
+
 2. Deployment service example
--Deploy sample simpleserver
-```cd examples/simple &amp;&amp; kubectl apply -f  simpleserver.yaml ` ` ` `
-Example description:
--The image is created by the 'examples / simple / dockerfile' file, and the basic image is created by 'CMD / tarscli / dockerfile'
-- start.sh The 'tarscli genconf' in is used to generate the tars service startup configuration
-- server_ meta.yaml The file is used to configure the metadata of the service. For field information, please refer to 'app / genconf'/ config.go `The 'serverconf' structure in. Endpoint defaults to 'TCP - h ${local_ ip} -p ${random_ Port} 'supports automatic filling of IP and random ports.
--HelloWorld program based on go language TestApp.HelloGo
-See [examples] for details/ README.md ](examples)
+    -Deploy sample simpleserver
+
+     ```cd examples/simple &amp;&amp; kubectl apply -f  simpleserver.yaml```
+
+     Example description:
+     -The image is created by the `examples / simple / dockerfile` file, and the basic image is created by `cmd/tarscli/dockerfile`
+     - start.sh: `tarscli genconf` in is used to generate the tars service startup configuration
+     - server_ meta.yaml The file is used to configure the metadata of the service. For field information, please refer to `app/genconf/config.go` structure  `ServerConf` . Endpoint defaults to `tcp -h ${local_ip} -p ${random_port}` , supports automatic filling of IP and random ports.
+     -ased on Golang HelloWorld program TestApp.HelloGo
+     See [examples/README.md](examples)
+     
 3. Verify the deployment
 Login ` DB_ Then execute 'select * from t'_ server_ The node information of simpleserver has been registered automatically.
-##Tar deployment directory structure
+
+## Tars deployment directory structure
 `Tarscli ` based on environment variable 'tars_ Path '(default / tars) to manage services. The directory functions are as follows:
 - `${TARS_ Path} / bin ': startup scripts and binaries
 - `${TARS_ Path} / conf ': configuration file
 - `${TARS_ Path} / log ': log file
 - `${TARS_ Path} / data ': Runtime / cache file
 ##About tarscli
-`Tarscli 'provides a set of command tools to facilitate container deployment of tar services. Parameters can be specified through environment variables. For details, see' tarscli help '.
+`Tarscli 'provides a set of command tools to facilitate container deployment of TARS services. Parameters can be specified through environment variables. For details, see' tarscli help '.
 Here are the sub commands supported by tarscli
 -'genconf' is used to generate the startup configuration file of the TAS service. The supported environment variables are:
 - `TARS_ Application 'the application name specified. By default, the`_ server_ meta.yaml `Read from
