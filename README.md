@@ -60,10 +60,10 @@ Here are the sub commands supported by tarscli
 - `TARS_CHECK_SCRIPT_TIMEOUT` the timeout to run the shell command before each check
 - `TARS_PRESTOP_WAITTIME` turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
 
--Hzcheck is used to synchronize the service status and the pod status of k8s. You need to set the ` readiness probe`  of pod to tarscli ` hzcheck`  command
--Prestop is used to delete the configuration corresponding to the registry before the service exits
-- `TARS_PRESTOP_WAITTIME`  turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
--Notify is used to send management commands. The common commands are: tars.setloglevel/tars.pprof, etc
+- Hzcheck is used to synchronize the service status and the pod status of k8s. You need to set the ` readiness probe`  of pod to tarscli ` hzcheck`  command
+- Prestop is used to delete the configuration corresponding to the registry before the service exits
+    - `TARS_PRESTOP_WAITTIME`  turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
+- Notify is used to send management commands. The common commands are: tars.setloglevel/tars.pprof, etc
 
 ## Basic services
 TARS related basic services provide rich service governance functions. Please refer to [baseserver](./baseserver) for deployment.
