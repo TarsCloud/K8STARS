@@ -56,4 +56,4 @@ Here are the sub commands supported by tarscli
 -Notify is used to send management commands. The common commands are: tars.setloglevel/tars . pprof, etc
 
 ## Basic services
-Tars related basic services provide rich service governance functions. Please refer to [baseserver] (. / baseserver) for deployment.
+TARS related basic services provide rich service governance functions. Please refer to [baseserver] (./baseserver) for deployment.
