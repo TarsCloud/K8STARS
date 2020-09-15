@@ -39,15 +39,16 @@ Login `db_tars` , then execute `select * from t_server_conf\G` The node informat
    - `${TARS_PATH}/data`：Runtime, Cache file
 
 ## About tarscli
-`Tarscli 'provides a set of command tools to facilitate container deployment of TARS services. Parameters can be specified through environment variables. For details, see' tarscli help '.
+`tarscli` provides a set of command tools to facilitate container deployment of TARS services. Parameters can be specified through environment variables. For details, see `tarscli help`.
+
 Here are the sub commands supported by tarscli
--'genconf' is used to generate the startup configuration file of the TAS service. The supported environment variables are:
-- `TARS_ Application 'the application name specified. By default, the`_ server_ meta.yaml `Read from
-- `TARS_ Server 'is the service name specified by the`_ server_ meta.yaml `Read from
-- `TARS_ BUILD_ Server 'the service name at compile time. It will be used when the compiled service name is different from the running service name
-- `TARS_ Location 'can specify the address of registry. The default is' tars'- registry.default.svc . cluster.local  -P 17890 '(address of service)
-- `TARS_ SET_ ID 'can specify service set
-- `TARS_ MERGE_ Conf ` can specify the configuration template file and merge the configuration into the service startup configuration file
+- `genconf` is used to generate the startup configuration file of the TARS service. The supported environment variables are:
+- `TARS_Application 'the application name specified. By default, the`_ server_ meta.yaml `Read from
+- `TARS_Server 'is the service name specified by the`_ server_ meta.yaml `Read from
+- `TARS_BUILD_Server 'the service name at compile time. It will be used when the compiled service name is different from the running service name
+- `TARS_Location 'can specify the address of registry. The default is' tars'- registry.default.svc . cluster.local  -P 17890 '(address of service)
+- `TARS_SET_ID 'can specify service set
+- `TARS_MERGE_Conf ` can specify the configuration template file and merge the configuration into the service startup configuration file
 -The 'supervisor' executes the 'genconf' command by default, and then starts and monitors the service. The supported environment variables are:
 - `TARS_ START_ The startup script of the path 'service is' $tars by default_ PATH/bin/ start.sh `
 - `TARS_ STOP_ The stop script of the path 'service. By default, kill is in' $tars_ All service processes under path '
