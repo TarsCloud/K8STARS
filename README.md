@@ -1,10 +1,10 @@
 # K8STARS
-K8stars is a convenient solution to run the tar service in kubernetes.
+K8STARS is a convenient solution to run TARS services in kubernetes.
 
 ## Characteristics
--Maintain the native development framework capability of tars
--Automatic registration and configuration deletion of name service for tars
--Support smooth migration of original tar services to k8s and other container platforms
+-Maintain the native development capability of TARS
+-Automatic registration and configuration deletion of name service for TARS
+-Support smooth migration of original TARS services to K8S and other container platforms
 -Non intrusive design, no coupling relationship with operating environment
 
 ## Implementation scheme
