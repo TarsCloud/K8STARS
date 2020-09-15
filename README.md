@@ -1,13 +1,16 @@
-# k8stars
+# K8STARS
 K8stars is a convenient solution to run the tar service in kubernetes.
+
 ##Characteristics
 -Maintain the native development framework capability of tars
 -Automatic registration and configuration deletion of name service for tars
 -Support smooth migration of original tar services to k8s and other container platforms
 -Non intrusive design, no coupling relationship with operating environment
+
 ##Implementation scheme
 1. Three interfaces are added in the tarsregistry, which are used for automatic registration / heartbeat reporting and node offline. For details, please refer to [interface definition] (. / tar registry / protocol)/ tarsregistry.tars )。
 2. A 'tarscli' command-line tool is provided to allocate ports / generate configuration / report heartbeat and node offline.
+
 ##Deployment examples
 1. Tarsregistry (name service)
 Refer to the instructions in [baseserver] (. / baseserver) to deploy tar registry
