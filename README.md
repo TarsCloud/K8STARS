@@ -1,3 +1,5 @@
+[Read Chinese Version](./README_cn.md) 
+
 # K8STARS
 K8STARS is a convenient solution to run TARS services in kubernetes.
 
