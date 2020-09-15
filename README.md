@@ -51,18 +51,19 @@ Here are the sub commands supported by tarscli
 - `TARS_MERGE_Conf` can specify the configuration template file and merge the configuration into the service startup configuration file
 
 - `supervisor` executes the `genconf` command by default, and then starts and monitors the service. The supported environment variables are:
-- `TARS_START_PATH` The startup script of the service 'service is' $tars by default_ PATH/bin/ start.sh `
-- `TARS_STOP_ The stop script of the path 'service. By default, kill is in' $tars_ All service processes under path '
-- `TARS_REPORT_ Interval 'reports the interval between heartbeat and registry
-- `TARS_DISABLE_ Flow 'whether to enable traffic when registering with registry. If it is not empty, it means it is off. It is enabled by default
-- `TARS_CHECK_Interval 'check the service status interval. If the status changes, it will be synchronized to the registry in real time
-- `TARS_BEFORE_CHECK_Script ` the shell command that runs before each check
-- `TARS_CHECK_SCRIPT_Timeout ` the timeout to run the shell command before each check
-- `TARS_PRESTOP_Waittime 'turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
--Hzcheck is used to synchronize the service status and the pod status of k8s. You need to set the 'readiness probe' of pod to tarscli 'hzcheck' command
+- `TARS_START_PATH` The startup script of the service `$TARS_PATH/bin/start.sh`
+- `TARS_STOP_PATH` The stop script, by default, kill all service processes under path `$TARS_PATH`
+- `TARS_REPORT_INTERVAL` reports the interval heartbeat to registry
+- `TARS_DISABLE_FLOW` whether to enable traffic when registering with registry. If it is not empty, it means it is off. It is enabled by default
+- `TARS_CHECK_INTERVAL` check the service status interval. If the status changes, it will be synchronized to the registry in real time
+- `TARS_BEFORE_CHECK_SCRIPT` the shell command that runs before each check
+- `TARS_CHECK_SCRIPT_TIMEOUT` the timeout to run the shell command before each check
+- `TARS_PRESTOP_WAITTIME` turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
+
+-Hzcheck is used to synchronize the service status and the pod status of k8s. You need to set the ` readiness probe`  of pod to tarscli ` hzcheck`  command
 -Prestop is used to delete the configuration corresponding to the registry before the service exits
-- `TARS_ PRESTOP_ Waittime 'turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
--Notify is used to send management commands. The common commands are: tars.setloglevel/tars . pprof, etc
+- `TARS_PRESTOP_WAITTIME`  turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
+-Notify is used to send management commands. The common commands are: tars.setloglevel/tars.pprof, etc
 
 ## Basic services
 TARS related basic services provide rich service governance functions. Please refer to [baseserver](./baseserver) for deployment.
