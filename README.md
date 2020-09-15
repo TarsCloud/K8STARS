@@ -43,21 +43,22 @@ Login `db_tars` , then execute `select * from t_server_conf\G` The node informat
 
 Here are the sub commands supported by tarscli
 - `genconf` is used to generate the startup configuration file of the TARS service. The supported environment variables are:
-- `TARS_Application 'the application name specified. By default, the`_ server_ meta.yaml `Read from
-- `TARS_Server 'is the service name specified by the`_ server_ meta.yaml `Read from
-- `TARS_BUILD_Server 'the service name at compile time. It will be used when the compiled service name is different from the running service name
-- `TARS_Location 'can specify the address of registry. The default is' tars'- registry.default.svc . cluster.local  -P 17890 '(address of service)
-- `TARS_SET_ID 'can specify service set
-- `TARS_MERGE_Conf ` can specify the configuration template file and merge the configuration into the service startup configuration file
--The 'supervisor' executes the 'genconf' command by default, and then starts and monitors the service. The supported environment variables are:
-- `TARS_ START_ The startup script of the path 'service is' $tars by default_ PATH/bin/ start.sh `
-- `TARS_ STOP_ The stop script of the path 'service. By default, kill is in' $tars_ All service processes under path '
-- `TARS_ REPORT_ Interval 'reports the interval between heartbeat and registry
-- `TARS_ DISABLE_ Flow 'whether to enable traffic when registering with registry. If it is not empty, it means it is off. It is enabled by default
-- `TARS_ CHECK_ Interval 'check the service status interval. If the status changes, it will be synchronized to the registry in real time
-- `TARS_ BEFORE_ CHECK_ Script ` the shell command that runs before each check
-- `TARS_ CHECK_ SCRIPT_ Timeout ` the timeout to run the shell command before each check
-- `TARS_ PRESTOP_ Waittime 'turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
+- `TARS_Application` the application name specified. By default, the`_ server_ meta.yaml `Read from
+- `TARS_Server` is the service name specified by the`_ server_ meta.yaml `Read from
+- `TARS_BUILD_Server` the service name at compile time. It will be used when the compiled service name is different from the running service name
+- `TARS_Location` can specify the address of registry. The default is `tars-registry.default.svc.cluster.local -p 17890` (address of service)
+- `TARS_SET_ID` can specify service set
+- `TARS_MERGE_Conf` can specify the configuration template file and merge the configuration into the service startup configuration file
+
+- `supervisor` executes the `genconf` command by default, and then starts and monitors the service. The supported environment variables are:
+- `TARS_START_PATH` The startup script of the service 'service is' $tars by default_ PATH/bin/ start.sh `
+- `TARS_STOP_ The stop script of the path 'service. By default, kill is in' $tars_ All service processes under path '
+- `TARS_REPORT_ Interval 'reports the interval between heartbeat and registry
+- `TARS_DISABLE_ Flow 'whether to enable traffic when registering with registry. If it is not empty, it means it is off. It is enabled by default
+- `TARS_CHECK_Interval 'check the service status interval. If the status changes, it will be synchronized to the registry in real time
+- `TARS_BEFORE_CHECK_Script ` the shell command that runs before each check
+- `TARS_CHECK_SCRIPT_Timeout ` the timeout to run the shell command before each check
+- `TARS_PRESTOP_Waittime 'turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
 -Hzcheck is used to synchronize the service status and the pod status of k8s. You need to set the 'readiness probe' of pod to tarscli 'hzcheck' command
 -Prestop is used to delete the configuration corresponding to the registry before the service exits
 - `TARS_ PRESTOP_ Waittime 'turn off traffic - the waiting time before stopping the service. It is used for lossless changes. The default value is 80 seconds
