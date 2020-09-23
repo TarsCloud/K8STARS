@@ -4,10 +4,10 @@
 K8STARS is a convenient solution to run TARS services in kubernetes.
 
 ## Characteristics
--Maintain the native development capability of TARS
--Automatic registration and configuration deletion of name service for TARS
--Support smooth migration of original TARS services to K8S and other container platforms
--Non intrusive design, no coupling relationship with operating environment
+- Maintain the native development capability of TARS
+- Automatic registration and configuration deletion of name service for TARS
+- Support smooth migration of original TARS services to K8S and other container platforms
+- Non intrusive design, no coupling relationship with operating environment
 
 ## Implementation scheme
 1. Three interfaces are added in the tarsregistry, which are used for automatic registration, heartbeat reporting and node offline. For details, please refer to [interface definition](./tarsregistry/protocol/tarsregistry.tars)。
@@ -24,7 +24,7 @@ Refer to the instructions in [baseserver](./baseserver) to deploy tarsregistry
      ```cd examples/simple &amp;&amp; kubectl apply -f  simpleserver.yaml```
 
      Example description:
-     -The image is created by the `examples / simple / dockerfile` file, and the basic image is created by `cmd/tarscli/dockerfile`
+     - The image is created by the `examples / simple / dockerfile` file, and the basic image is created by `cmd/tarscli/dockerfile`
      - start.sh: `tarscli genconf` in is used to generate the tars service startup configuration
      - server_ meta.yaml The file is used to configure the metadata of the service. For field information, please refer to `app/genconf/config.go` structure  `ServerConf` . Endpoint defaults to `tcp -h ${local_ip} -p ${random_port}` , supports automatic filling of IP and random ports.
      -ased on Golang HelloWorld program TestApp.HelloGo
