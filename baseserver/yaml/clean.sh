@@ -9,6 +9,7 @@ kubectl delete deployments tarsproperty
 kubectl delete deployments tarsqueryproperty
 kubectl delete deployments tarsquerystat
 kubectl delete deployments tarsstat
+kubectl delete deployments tarsnotify
 kubectl delete svc tars-registry
 kubectl delete svc tars-web
 kubectl delete configmaps tars-db-config
