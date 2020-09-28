@@ -4,7 +4,6 @@ kubectl delete deployments tars-registry
 kubectl delete deployments tars-web
 kubectl delete deployments tarsconfig
 kubectl delete deployments tarslog
-kubectl delete deployments tarslog
 kubectl delete deployments tarsproperty
 kubectl delete deployments tarsqueryproperty
 kubectl delete deployments tarsquerystat
