@@ -28,9 +28,6 @@ func GetRegistryClient(locator string) RegistryClient {
 	if mockClient != nil {
 		return mockClient
 	}
-	if impClient != nil {
-		return impClient
-	}
 	client := &Tars.Tarsregistry{}
 	if err := StringToProxy(locator, "tars.tarsregistry.Registry", client); err != nil {
 		return nil
