@@ -20,4 +20,4 @@ kubectl exec -i ${pod} -- mysql -h ${host} -u${user} -p${pass} db_tars_web < ./d
 kubectl exec -i ${pod} -- mysql -h ${host} -u${user} -p${pass} db_cache_web < ./deploy/deploy/web/sql/db_cache_web.sql
 kubectl exec -i ${pod} -- mysql -h ${host} -u${user} -p${pass} tars_stat < ./deploy/deploy/web/sql/db_cache_web.sql
 
-kubectl exec ${pod} -- mysql -u${user} -p${pass} db_tars -e "show tables"
+kubectl exec ${pod} -- mysql -h ${host} -u${user} -p${pass} db_tars -e "show tables"
