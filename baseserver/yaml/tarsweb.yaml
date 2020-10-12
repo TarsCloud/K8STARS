@@ -25,6 +25,21 @@ spec:
             configMapKeyRef:
               name: tars-db-config
               key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_PORT
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              name: tars-db-config
+              key: DB_PASS 
 ---
 apiVersion: v1
 kind: Service
