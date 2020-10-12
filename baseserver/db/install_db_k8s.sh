@@ -5,7 +5,6 @@ export user=root
 export pass=pass
 export host=localhost
 
-
 kubectl exec ${pod} -- mysql -h ${host} -u${user} -p${pass} -e "create database db_tars" || exit 1
 
 kubectl exec ${pod} -- mysql -h ${host} -u${user} -p${pass} -e "create database db_user_system"
