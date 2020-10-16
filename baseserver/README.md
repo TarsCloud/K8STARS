@@ -19,6 +19,7 @@
    kubectl get pods | grep tars-db
 
    // 修改 db/install_db_k8s.sh中的Pod名，然后导入数据
+   // 如果使用了外部数据库，需要创建一个包含mysql客户端的pod，并修改host user pass 三个变量
    sh db/install_db_k8s.sh
    ```
    对于已有的tars db，再请执行sql文件会清空原有的数据，只需要导入缺少的db即可。
