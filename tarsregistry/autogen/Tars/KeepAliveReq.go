@@ -12,6 +12,9 @@ import (
 type KeepAliveReq struct {
 	NodeName string `json:"nodeName"`
 	State    string `json:"state"`
+	Application string `json:"application"`
+	Server      string `json:"server"`
+	SetID       string `json:"setID"`
 }
 
 func (st *KeepAliveReq) resetDefault() {
@@ -31,6 +34,21 @@ func (st *KeepAliveReq) ReadFrom(_is *codec.Reader) error {
 	}
 
 	err = _is.Read_string(&st.State, 1, true)
+	if err != nil {
+		return err
+	}
+
+	err = _is.Read_string(&st.Application, 2, false)
+	if err != nil {
+		return err
+	}
+
+	err = _is.Read_string(&st.Server, 3, false)
+	if err != nil {
+		return err
+	}
+
+	err = _is.Read_string(&st.SetID, 4, false)
 	if err != nil {
 		return err
 	}
@@ -79,6 +97,21 @@ func (st *KeepAliveReq) WriteTo(_os *codec.Buffer) error {
 	}
 
 	err = _os.Write_string(st.State, 1)
+	if err != nil {
+		return err
+	}
+
+	err = _os.Write_string(st.Application, 2)
+	if err != nil {
+		return err
+	}
+
+	err = _os.Write_string(st.Server, 3)
+	if err != nil {
+		return err
+	}
+
+	err = _os.Write_string(st.SetID, 4)
 	if err != nil {
 		return err
 	}

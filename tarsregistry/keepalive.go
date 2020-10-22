@@ -13,6 +13,9 @@ func (s *registryImp) keepAlive(startReq *Tars.OnStartupReq) {
 	keepReq := &Tars.KeepAliveReq{
 		NodeName: startReq.NodeName,
 		State:    "active",
+		Application: startReq.Application,
+		Server: startReq.Server,
+		SetID: startReq.SetID,
 	}
 	for range time.NewTicker(time.Second * 10).C {
 		if !hasReg {

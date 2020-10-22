@@ -48,6 +48,9 @@ func (c *launchCmd) keepAlive(checkSucc bool) error {
 	req := Tars.KeepAliveReq{
 		NodeName: consts.LocalIP,
 		State:    state,
+		Application: sConf.Application,
+		Server: sConf.Server,
+		SetID: sConf.SetID,
 	}
 	if err := client.KeepAlive(context.Background(), &req); err != nil {
 		log.Debugf("KeepAlive error %v", err)

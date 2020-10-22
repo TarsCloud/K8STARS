@@ -71,11 +71,14 @@ func (r *registryImp) OnStartup(ctx context.Context, Req *Tars.OnStartupReq) (er
 
 // OnPrestop is a reentrant function
 func (r *registryImp) OnPrestop(ctx context.Context, Req *Tars.OnPrestopReq) (err error) {
+	logger.Debugf("NodeName:%s", Req.NodeName)
 	return r.driver.DeleteNodeConf(ctx, Req.NodeName)
 }
 
 // KeepAlive is a reentrant function
 func (r *registryImp) KeepAlive(ctx context.Context, Req *Tars.KeepAliveReq) (err error) {
+	logger.Debugf("NodeName:%s, State:%s, Application:%s, Server:%s, SetID:%s", 
+		Req.NodeName, Req.State, Req.Application, Req.Server, Req.SetID)
 	if err := r.driver.KeepAliveNode(ctx, Req.NodeName); err != nil {
 		logger.Errorf("KeepAliveNode error %v", err)
 		return err
@@ -83,5 +86,5 @@ func (r *registryImp) KeepAlive(ctx context.Context, Req *Tars.KeepAliveReq) (er
 	if Req.State == "" {
 		Req.State = "active"
 	}
-	return r.driver.SetServerState(ctx, Req.NodeName, Req.State)
+	return r.driver.SetServerState(ctx, Req.NodeName, Req.Application, Req.Server, Req.State)
 }

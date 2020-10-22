@@ -60,7 +60,7 @@ func Prestop(waitStopTime time.Duration) error {
 	client := tarsproxy.GetRegistryClient(sConf.Locator)
 	req := &Tars.OnPrestopReq{NodeName: consts.LocalIP}
 	err = client.OnPrestop(context.Background(), req)
-	if err == nil {
+	if err != nil {
 		log.Debugf("Prestop error %v", err)
 	}
 	// notify prestop

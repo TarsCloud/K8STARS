@@ -35,5 +35,5 @@ type Store interface {
 	RegistryAdapter(ctx context.Context, conf []*AdapterConf) error
 	DeleteNodeConf(ctx context.Context, nodeName string) error
 	KeepAliveNode(ctx context.Context, nodeName string) error
-	SetServerState(ctx context.Context, nodeName, state string) error
+	SetServerState(ctx context.Context, nodeName, application, server, state string) error
 }

@@ -27,6 +27,9 @@ module tars
     struct keepAliveReq{
         0 require string nodeName;
         1 require string state; // inactive or active
+        2 optional string application;
+        3 optional string server;
+        4 optional string setID;
     };
 
     interface tarsregistry
