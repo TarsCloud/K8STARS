@@ -103,10 +103,18 @@ func (m *mysqlDriver) KeepAliveNode(ctx context.Context, nodeName string) error 
 	return err
 }
 
-func (m *mysqlDriver) SetServerState(ctx context.Context, nodeName, state string) error {
-	sql := "update t_server_conf set present_state = ? where node_name = ?"
+func (m *mysqlDriver) SetServerState(ctx context.Context, nodeName, application, server, state string) error {
+	sql := "update t_node_info set present_state = ? where node_name = ?"
 	_, err := m.db.ExecContext(ctx, sql, state, nodeName)
-	sql = "update t_node_info set present_state = ? where node_name = ?"
-	_, err = m.db.ExecContext(ctx, sql, state, nodeName)
+
+	// compatible with old report
+	if application == "" || server == "" {
+		sql = "update t_server_conf set present_state = ? where node_name = ?"
+		_, err = m.db.ExecContext(ctx, sql, state, nodeName)
+
+	} else {
+		sql = "update t_server_conf set present_state = ? where node_name = ? and application = ? and server_name = ?"
+		_, err = m.db.ExecContext(ctx, sql, state, nodeName, application, server)
+	}
 	return err
 }
