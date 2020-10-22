@@ -48,7 +48,7 @@ k8stars是便于将tars服务运行在 Kubernetes 中的方案。
      - `TARS_APPLICATION` 指定的应用名，默认从`_server_meta.yaml`中读取
      - `TARS_SERVER` 指定的服务名，默认从`_server_meta.yaml`中读取
      - `TARS_BUILD_SERVER`编译时的服务名，编译的服务名与运行的服务名不同时会用到
-     - `TARS_LOCATOR`可以指定registry的地址，默认是`tars-registry.default.svc.cluster.local -p 17890`（service的地址）
+     - `TARS_LOCATOR`可以指定registry的地址，默认是`tars.tarsregistry.QueryObj@tcp -h tars-registry.default.svc.cluster.local -p 17890`（service的地址）
      - `TARS_SET_ID`可以指定服务set
      - `TARS_MERGE_CONF`可指定配置模板文件，并将配置合并到服务的启动配置文件中
   
