@@ -23,7 +23,7 @@ func (c *launchCmd) shutdown() error {
 	// notify shutdown
 	adminClient := &adminf.AdminF{}
 	comm := tars.NewCommunicator()
-	comm.StringToProxy(sConf.Application+"."+sConf.Server+".adminObj@"+sConf.LocalEndpoint, adminClient)
+	comm.StringToProxy("AdminObj@"+sConf.LocalEndpoint, adminClient)
 	go adminClient.Shutdown()
 
 	deadline := time.Now().Add(time.Second * 60)

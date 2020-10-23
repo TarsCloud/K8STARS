@@ -66,7 +66,7 @@ func Prestop(waitStopTime time.Duration) error {
 	// notify prestop
 	adminClient := &adminf.AdminF{}
 	comm := tars.NewCommunicator()
-	comm.StringToProxy(sConf.Application+"."+sConf.Server+".adminObj@"+sConf.LocalEndpoint, adminClient)
+	comm.StringToProxy("AdminObj@"+sConf.LocalEndpoint, adminClient)
 	adminClient.TarsSetTimeout(1000)
 	adminClient.Notify("prestop")
 
