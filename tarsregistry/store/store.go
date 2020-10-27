@@ -29,6 +29,13 @@ type AdapterConf struct {
 	QueueTimeout int
 }
 
+type MetricsTarget struct {
+	SetID       string
+	Application string
+	Server      string
+	Address     string
+}
+
 type Store interface {
 	RegisterNode(ctx context.Context, nodeName string) error
 	RegisterServer(ctx context.Context, conf *ServerConf) error
@@ -36,4 +43,6 @@ type Store interface {
 	DeleteNodeConf(ctx context.Context, nodeName string) error
 	KeepAliveNode(ctx context.Context, nodeName string) error
 	SetServerState(ctx context.Context, nodeName, application, server, state string) error
+	RegisterMetrics(ctx context.Context, nodeName, application, server string, port int) error
+	GetMetricTargets(ctx context.Context) ([]MetricsTarget, error)
 }

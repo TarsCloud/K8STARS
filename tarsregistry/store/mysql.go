@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -17,7 +18,13 @@ func NewMysqlDB(dsn string) (Store, error) {
 	if err != nil {
 		return nil, err
 	}
+	sqlPatch(db)
 	return &mysqlDriver{db: db}, nil
+}
+
+func sqlPatch(db *sql.DB) {
+	q := "alter table t_server_conf add metrics_port int(11) default 0"
+	db.Exec(q)
 }
 
 func (m *mysqlDriver) RegisterNode(ctx context.Context, nodeName string) error {
@@ -116,5 +123,42 @@ func (m *mysqlDriver) SetServerState(ctx context.Context, nodeName, application,
 		sql = "update t_server_conf set present_state = ? where node_name = ? and application = ? and server_name = ?"
 		_, err = m.db.ExecContext(ctx, sql, state, nodeName, application, server)
 	}
+	return err
+}
+
+func (m *mysqlDriver) GetMetricTargets(ctx context.Context) ([]MetricsTarget, error) {
+	query := `select application, server_name, node_name,
+	enable_set, set_name, set_area, set_group, metrics_port
+	from t_server_conf where metrics_port > 0`
+	rows, err := m.db.QueryContext(ctx, query)
+	ret := make([]MetricsTarget, 0)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return ret, nil
+		}
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var ep MetricsTarget
+		var node, enable, sn, sa, sg string
+		var port int
+		if err := rows.Scan(&ep.Application, &ep.Server, &node, &enable, &sn, &sa, &sg, &port); err != nil {
+			return nil, err
+		}
+		if enable == "Y" || enable == "y" {
+			ep.SetID = strings.Join([]string{sn, sa, sg}, ".")
+		}
+		ep.Address = fmt.Sprintf("%s:%d", node, port)
+		ret = append(ret, ep)
+	}
+	return ret, nil
+}
+
+func (m *mysqlDriver) RegisterMetrics(ctx context.Context, nodeName, application,
+	server string, port int) error {
+	sql := `update t_server_conf set metrics_port=?
+	where node_name=? and application=? and server_name=?`
+	_, err := m.db.ExecContext(ctx, sql, port, nodeName, application, server)
 	return err
 }

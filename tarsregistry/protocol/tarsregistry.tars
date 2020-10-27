@@ -9,6 +9,7 @@ module tars
         5 optional int queueCap;
         6 optional int queueTimeout;
     };
+    
     struct onStartupReq{
         0 require string nodeName;
         1 require string application;
@@ -29,7 +30,22 @@ module tars
         1 require string state; // inactive or active
         2 optional string application;
         3 optional string server;
-        4 optional string setID;
+    };
+
+    struct RegisterMetricsReq{
+        0 require string nodeName;
+        1 require string application;
+        2 require string server;
+        3 require int metricsPort;
+    };
+
+    struct GetMetricsAdaptersReq{
+        0 optional map<string, string> filter; // enable in feature
+    };
+
+    struct MetricsAdapterInfo{
+        0 optional vector<string> targets;
+        1 optional map<string, string> labels;
     };
 
     interface tarsregistry
@@ -37,5 +53,7 @@ module tars
         void onStartup(onStartupReq req);
         void onPrestop(onPrestopReq req);
         void keepAlive(keepAliveReq req);
+        void registerMetrics(RegisterMetricsReq req);
+        void getMetricsAdapters(GetMetricsAdaptersReq req, out vector<MetricsAdapterInfo> rsp);
     };
 };

@@ -4,18 +4,17 @@ import (
 	"context"
 	"time"
 
-	"github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
+	tars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 )
 
-func (s *registryImp) keepAlive(startReq *Tars.OnStartupReq) {
+func (s *registryImp) keepAlive(startReq *tars.OnStartupReq) {
 	hasReg := false
 	ctx := context.Background()
-	keepReq := &Tars.KeepAliveReq{
-		NodeName: startReq.NodeName,
-		State:    "active",
+	keepReq := &tars.KeepAliveReq{
+		NodeName:    startReq.NodeName,
+		State:       "active",
 		Application: startReq.Application,
-		Server: startReq.Server,
-		SetID: startReq.SetID,
+		Server:      startReq.Server,
 	}
 	for range time.NewTicker(time.Second * 10).C {
 		if !hasReg {
@@ -24,6 +23,7 @@ func (s *registryImp) keepAlive(startReq *Tars.OnStartupReq) {
 				continue
 			}
 			hasReg = true
+			go s.registryMetrics()
 		}
 
 		if err := s.KeepAlive(ctx, keepReq); err != nil {

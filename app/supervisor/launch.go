@@ -121,6 +121,14 @@ func (c *launchCmd) startSever() {
 	}
 
 	log.Debugf("start server %s", c.startPath)
+
+	gConf, err := genconf.GetGlobalConf()
+	if err != nil {
+		return
+	}
+	sConf := &gConf.Conf
+	noitfyMsg(sConf, "server version: "+os.Getenv("SERVER_VERSION"))
+
 	go func() {
 		err := cmd.Run()
 		if err != nil {
