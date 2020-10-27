@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: tars-db-config
 data:
-  DB_HOST: "tars-db.default.svc.cluster.local"
+  DB_HOST: "tars-db.tars-system.svc.cluster.local"
   DB_PORT: "3306"
   DB_USER: root
   DB_PASS: pass

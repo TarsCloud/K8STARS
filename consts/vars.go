@@ -19,7 +19,7 @@ var (
 	// LocalIP is the ipv4 address
 	LocalIP string
 	// NameSpace is the namepace of cluster
-	NameSpace = "default"
+	NameSpace = "tars-system"
 	// TarsPath is the work directory for tars server
 	TarsPath = "/tars"
 	// RandPortMin is min random port
@@ -34,7 +34,7 @@ func init() {
 	} else {
 		LocalIP = getIP()
 	}
-	if e := os.Getenv("POD_NAMESPACE"); e != "" {
+	if e := os.Getenv("TARS_NAMESPACE"); e != "" {
 		NameSpace = e
 	}
 	if e := os.Getenv("TARS_PATH"); e != "" {

@@ -8,28 +8,40 @@
 
 2. 部署tars db
    ```
-   // 进入baseserver目录，获取tars的deploy相关文件
-   cd baseserver
-   make deploy
+   git clone https://github.com/TarsCloud/K8STARS
+
+   // 创建tars-system命名空间
+   kubectl create namespace tars-system
+
+   // 设置默认的命名空间
+   kubectl config set-context --current --namespace=tars-system
    
+   // 进入baseserver目录，获取tars的deploy相关文件
+   cd K8STARS/baseserver
+   make deploy
+
    // 创建一个MySQL数据库用于体验(在生产环境中，建议使用云db实例)
    kubectl apply -f yaml/db_all_in_one.yaml
 
-   // 获取新仓库的db名
-   kubectl get pods | grep tars-db
+   // 确认pod的状态是正常的
+   kubectl get pods
 
-   // 修改 db/install_db_k8s.sh中的Pod名，然后导入数据
-   // 如果使用了外部数据库，需要创建一个包含mysql客户端的pod，并修改host user pass 三个变量
+   // 获取pod名
+   export db_pod=$(kubectl get pod -l  app=tars-db-all-in-one -o jsonpath='{.items[0].metadata.name}')
+
+   // 基于上面的pod
    sh db/install_db_k8s.sh
    ```
+   如果使用了外部数据库，可以通过db/all_db.sql将表结构导入。
    对于已有的tars db，再请执行sql文件会清空原有的数据，只需要导入缺少的db即可。
+   
 
-3. tars registry
+3. 安装tars registry
    
    使用`kubectl apply -f yaml/registry.yaml`部署tars registry。
-   如果没用k8s创建的db，请修改`registry.yaml`中的数据地址。
+   如果没用k8s创建的db，请修改`registry.yaml`中的数据库地址。
 
-4. tarsweb
+4. 安装tarsweb
    
    使用`kubectl apply -f yaml/tarsweb.yaml`部署。
    
@@ -47,6 +59,10 @@
    4. tarsstat
    5. tarsquerystat
    6. tarsqueryproperty
+
+
+   安装完成后恢复到默认的namespace：
+   kubectl config set-context --current --namespace=default
 
 ## 镜像生成说明
 
