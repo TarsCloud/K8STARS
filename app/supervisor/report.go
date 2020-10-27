@@ -43,8 +43,16 @@ func (c *launchCmd) keepAlive(checkSucc bool) error {
 		}
 	}
 
+	if err := ioutil.WriteFile(stateFile, []byte(state), 0644); err != nil {
+		log.Debugf("WriteFile error %v", err)
+	}
+
 	// invoke tars registry and set server status
 	client := tarsproxy.GetRegistryClient(sConf.Locator)
+	if client == nil {
+		log.Debugf("GetRegistryClient return nil, Locator %s", sConf.Locator)
+		return nil
+	}
 	req := Tars.KeepAliveReq{
 		NodeName: consts.LocalIP,
 		State:    state,
@@ -55,9 +63,6 @@ func (c *launchCmd) keepAlive(checkSucc bool) error {
 	if err := client.KeepAlive(context.Background(), &req); err != nil {
 		log.Debugf("KeepAlive error %v", err)
 		return nil
-	}
-	if err := ioutil.WriteFile(stateFile, []byte(state), 0644); err != nil {
-		log.Debugf("WriteFile error %v", err)
 	}
 	return nil
 }

@@ -58,6 +58,10 @@ func Prestop(waitStopTime time.Duration) error {
 
 	// invoke tars registry
 	client := tarsproxy.GetRegistryClient(sConf.Locator)
+	if client == nil {
+		log.Debugf("GetRegistryClient return nil, Locator %s", sConf.Locator)
+		return nil
+	}
 	req := &Tars.OnPrestopReq{NodeName: consts.LocalIP}
 	err = client.OnPrestop(context.Background(), req)
 	if err != nil {
