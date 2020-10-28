@@ -22,6 +22,10 @@ spec:
             value: pass
         ports:
           - containerPort: 3306
+        lifecycle:
+          postStart:
+            exec:
+              command: ["ln", "-nsf", "/usr/share/zoneinfo/Asia/Shanghai", "/etc/localtime"]
 ---
 apiVersion: v1
 kind: Service

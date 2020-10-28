@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Deployment
 metadata:
   name: tarsnotify
@@ -36,13 +36,16 @@ spec:
             configMapKeyRef:
               name: tars-db-config
               key: DB_PASS
-        livenessProbe:
+        readinessProbe:
             exec:
               command: ["tarscli", "hzcheck"]
+            failureThreshold: 10
             initialDelaySeconds: 5
-            timeoutSeconds: 6
-            periodSeconds: 8
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
         lifecycle:
           preStop:
             exec:
               command: ["tarscli", "prestop"]
+      terminationGracePeriodSeconds: 90

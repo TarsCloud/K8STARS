@@ -52,6 +52,10 @@ spec:
                 key: DB_PASS
       - name: tars-registry
         image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:latest
+        lifecycle:
+          preStop:
+            exec:
+              command: ["tarscli", "prestop"]
         env:
           - name: DB_HOST
             valueFrom:

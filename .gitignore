@@ -7,7 +7,6 @@ examples/simple/SimpleServer
 baseserver/_server_meta.yaml
 baseserver/build/
 baseserver/deploy/
-baseserver/tarsregistry/
 baseserver/tarsweb/TarsWeb/
 examples/simple/SimpleServer.tgz
 baseserver/tarsweb/default.env
