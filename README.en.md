@@ -30,7 +30,7 @@ K8stars is a solution to deploy TARS in a Kubernetes environment and it has the 
   * `TARS_APPLICATION` : the application name, which comes from `_server_meta.yaml` by default. 
   * `TARS_SERVER`: the server name, which is read from `_server_meta.yaml`. 
   * `TARS_BUILD_SERVER`: the server name when compiling. It is used when the compiled server name is different from the name of the server that is running. 
-  * `TARS_LOCATOR`: can designate the address of registry, and the default path is `tars-registry.default.svc.cluster.local -p 17890` (service’s address) 
+  * `TARS_LOCATOR`: can designate the address of registry, and the default path is `tars-registry.tars-system.svc.cluster.local -p 17890` (service’s address) 
   * `TARS_SET_ID`: can designate the service set. 
   * `TARS_MERGE_CONF`: can configure the template file, and merge it into the service’s starting configuration file. 
 * `Supervisor`, by default, executes `genconf` commands first, and then starts and monitors services. The supported environment variables include: 

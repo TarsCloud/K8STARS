@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export pod=tars-db-all-in-one-d747fbb89-qpxvw
+export pod=$(db_pod)
 export user=root
 export pass=pass
 export host=localhost

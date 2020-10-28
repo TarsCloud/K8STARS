@@ -48,7 +48,7 @@ Here are the sub commands supported by tarscli
 - `TARS_Application` the application name specified. By default, the`_ server_ meta.yaml `Read from
 - `TARS_Server` is the service name specified by the`_ server_ meta.yaml `Read from
 - `TARS_BUILD_Server` the service name at compile time. It will be used when the compiled service name is different from the running service name
-- `TARS_LOCATOR` can specify the address of registry. The default is `tars.tarsregistry.QueryObj@tcp -h tars-registry.default.svc.cluster.local -p 17890` (address of service)
+- `TARS_LOCATOR` can specify the address of registry. The default is `tars.tarsregistry.QueryObj@tcp -h tars-registry.tars-system.svc.cluster.local -p 17890` (address of service)
 - `TARS_SET_ID` can specify service set
 - `TARS_MERGE_Conf` can specify the configuration template file and merge the configuration into the service startup configuration file
 

@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: tars-db-config
 data:
-  DB_HOST: "tars-db.default.svc.cluster.local"
+  DB_HOST: "tars-db.tars-system.svc.cluster.local"
   DB_PORT: "3306"
   DB_USER: root
   DB_PASS: pass
@@ -52,6 +52,10 @@ spec:
                 key: DB_PASS
       - name: tars-registry
         image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:latest
+        lifecycle:
+          preStop:
+            exec:
+              command: ["tarscli", "prestop"]
         env:
           - name: DB_HOST
             valueFrom:

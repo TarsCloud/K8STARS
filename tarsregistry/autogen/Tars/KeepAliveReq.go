@@ -10,8 +10,8 @@ import (
 
 //KeepAliveReq strcut implement
 type KeepAliveReq struct {
-	NodeName string `json:"nodeName"`
-	State    string `json:"state"`
+	NodeName    string `json:"nodeName"`
+	State       string `json:"state"`
 	Application string `json:"application"`
 	Server      string `json:"server"`
 	SetID       string `json:"setID"`
