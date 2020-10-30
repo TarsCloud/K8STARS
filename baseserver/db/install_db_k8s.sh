@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export pod=$(db_pod)
+export pod=$db_pod
 export user=root
 export pass=pass
 export host=localhost

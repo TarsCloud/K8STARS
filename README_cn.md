@@ -7,14 +7,16 @@ k8stars是便于将tars服务运行在 Kubernetes 中的方案。
 - 支持原有tars服务平滑迁移到k8s等容器平台
 - 无侵入性设计，与运行环境无偶合关系
  
-## 实现方案
+## 实现原理
 1. 在tarsregistry增加了3个接口，用于tars名字的自动注册/心跳上报和节点下线。详情见[接口定义](./tarsregistry/protocol/tarsregistry.tars)。
 
 2. 提供一个`tarscli`命令行工具，用于分配端口/生成配置/上报心跳以及节点下线。
 
 ## 部署示例
-1. tarsregistry（名字服务）
-   参考[baseserver](./baseserver)的说明部署tars registry
+1. 安装tars基础服务
+```
+curl https://raw.githubusercontent.com/TarsCloud/K8STARS/master/baseserver/install_all.sh | sh
+```
 
 2. 部署服务示例
    - 部署示例simpleserver
@@ -62,10 +64,10 @@ k8stars是便于将tars服务运行在 Kubernetes 中的方案。
      - `TARS_CHECK_SCRIPT_TIMEOUT`每次检查前运行shell命令的超时时间
      - `TARS_PRESTOP_WAITTIME`关流量-停止服务前的等待时间，用于无损变更，默认80秒
   
-   - hzcheck 用于同步服务状态和k8s的pod状态，需要将pod的`readiness probe`设为tarscli `hzcheck`命令
-   - prestop 用于在服务退出前删除在registry对应的配置
+   - `hzcheck` 用于同步服务状态和k8s的pod状态，需要将pod的`readiness probe`设为tarscli `hzcheck`命令
+   - `prestop` 用于在服务退出前删除在registry对应的配置
      - `TARS_PRESTOP_WAITTIME`关流量-停止服务前的等待时间，用于无损变更，默认80秒
-   - notify 用于发送管理命令，常用命令有：tars.setloglevel/tars.pprof等
+   - `notify` 用于发送管理命令，常用命令有：tars.setloglevel/tars.pprof等
 
 ## 基础服务
    tars相关基础服务提供了丰富的服务治理功能功能。可参考[baseserver](./baseserver)的说明进行部署。

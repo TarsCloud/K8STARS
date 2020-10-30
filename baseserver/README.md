@@ -2,11 +2,20 @@
 
 ## 部署步骤
 
-1. 前置工作
+### 前置工作
    - 安装kubernetes，可以使用kubectl或其他方式来管理集群
    - 能执行docker命令行的终端
 
-2. 部署tars db
+### 安装基础服务步骤
+
+运行一键安装脚本：
+```
+curl https://raw.githubusercontent.com/TarsCloud/K8STARS/master/baseserver/install_all.sh | sh
+```
+
+或按以下步骤执行安装:
+
+1. 部署tars db
    ```
    git clone https://github.com/TarsCloud/K8STARS
 
@@ -36,12 +45,12 @@
    对于已有的tars db，再请执行sql文件会清空原有的数据，只需要导入缺少的db即可。
    
 
-3. 安装tars registry
+2. 安装tars registry
    
    使用`kubectl apply -f yaml/registry.yaml`部署tars registry。
    如果没用k8s创建的db，请修改`registry.yaml`中的数据库地址。
 
-4. 安装tarsweb
+3. 安装tarsweb
    
    使用`kubectl apply -f yaml/tarsweb.yaml`部署。
    
@@ -49,7 +58,7 @@
    
    说明：当前tarsweb版本未兼容k8s中的场景，页面中有重启/停止等入口，但是操作会失败。
 
-5. 部署其他服务
+4. 部署其他服务
    
    以`tarsnotify`为例，使用`kubectl apply -f yaml/tarsnotify.yaml`来部署。其中数据库相关配置可以按需要替换。
    其他服务可以使用同一方式来部署，将tarsnotify替换成其他服务即可。其他服务有：
@@ -73,3 +82,8 @@
 `make img SERVER=XXX` 生成基础服务XXX的镜像
 
 说明：cppregistry是原主控，后续可以合并到registry中。
+
+## 清理所有tars相关基础服务
+```
+kubectl delete all --all -n tars-system
+```

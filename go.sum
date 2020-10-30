@@ -9,6 +9,8 @@ github.com/TarsCloud/TarsGo v1.1.3-0.20200525141423-fd60d63bc778 h1:J1LuwPjvM09e
 github.com/TarsCloud/TarsGo v1.1.3-0.20200525141423-fd60d63bc778/go.mod h1:jkslu43B0kZitq9ztCH6ZM6l4rCKGkMjdqEPjHoOdjc=
 github.com/TarsCloud/TarsGo v1.1.5 h1:RR4n9xwAMDs8omzUmbSCXfFxRRspNtof4dqpCsm0js4=
 github.com/TarsCloud/TarsGo v1.1.5/go.mod h1:Er6urlrxd0JIeWyXSXgzkoSaagN+GbXJS75IoHythbg=
+github.com/TarsCloud/TarsGo v1.1.6-0.20201022022958-ad0531b0da8b h1:KWV03gRxXqX9GzPHtAwHpy6sXBSN1g9Aq71Isj86hRE=
+github.com/TarsCloud/TarsGo v1.1.6-0.20201022022958-ad0531b0da8b/go.mod h1:Er6urlrxd0JIeWyXSXgzkoSaagN+GbXJS75IoHythbg=
 github.com/TarsCloud/TarsGo/tars/tools/tars2go v0.0.0-20201022022958-ad0531b0da8b h1:fdpyMaJB9hhRe+RnAQ0pIrPP3qoI/28489Xbv0V3gZ4=
 github.com/TarsCloud/TarsGo/tars/tools/tars2go v0.0.0-20201022022958-ad0531b0da8b/go.mod h1:39IvczOex0FbbhFAp1E3utwjVmkFxtwVPAWhWqEKE/I=
 github.com/VividCortex/gohistogram v1.0.0/go.mod h1:Pf5mBqqDxYaXu3hDrrU+w6nw50o/4+TcAqDqk/vUH7g=

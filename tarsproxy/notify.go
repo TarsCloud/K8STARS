@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/tarscloud/k8stars/algorithm/retry"
 	"github.com/TarsCloud/TarsGo/tars/protocol/res/notifyf"
+	"github.com/tarscloud/k8stars/algorithm/retry"
 )
 
 var mockNotifyClient NotifyClient
@@ -21,11 +21,10 @@ func GetNotifyClient(locator string) NotifyClient {
 	if mockNotifyClient != nil {
 		return mockNotifyClient
 	}
-	if impNoitfyClient != nil {
-		return impNoitfyClient
-	}
 	client := &notifyf.Notify{}
-	StringToProxy(locator, "tars.tarsnotify.NotifyObj", client)
+	if err := StringToProxy(locator, "tars.tarsnotify.NotifyObj", client); err != nil {
+		return nil
+	}
 	client.TarsSetTimeout(rpcTimeout)
 	impNoitfyClient = &notifyClientImp{
 		client: client,

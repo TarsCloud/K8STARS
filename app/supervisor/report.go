@@ -101,6 +101,10 @@ func registerNode(sConf *genconf.ServerConf, disableFlow bool) error {
 func noitfyMsg(sConf *genconf.ServerConf, msg string) error {
 	// invoke tars registry and register the endponts
 	client := tarsproxy.GetNotifyClient(sConf.Locator)
+	if client == nil {
+		log.Errorf("GetNotifyClient failed")
+		return nil
+	}
 	req := &notifyf.ReportInfo{
 		EType:    notifyf.ReportType_REPORT,
 		SApp:     sConf.Application,

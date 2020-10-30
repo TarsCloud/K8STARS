@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/TarsCloud/TarsGo/tars"
+	"github.com/TarsCloud/TarsGo/tars/protocol/res/endpointf"
 	"github.com/tarscloud/k8stars/algorithm/retry"
 	"github.com/tarscloud/k8stars/consts"
 	"github.com/tarscloud/k8stars/logger"
-	"github.com/TarsCloud/TarsGo/tars"
-	"github.com/TarsCloud/TarsGo/tars/protocol/res/endpointf"
 )
 
 var (
