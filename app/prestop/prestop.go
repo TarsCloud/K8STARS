@@ -7,14 +7,14 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/TarsCloud/TarsGo/tars"
+	"github.com/TarsCloud/TarsGo/tars/protocol/res/adminf"
 	"github.com/tarscloud/k8stars/app/genconf"
 	"github.com/tarscloud/k8stars/consts"
 	"github.com/tarscloud/k8stars/logger"
 	"github.com/tarscloud/k8stars/tarsproxy"
-	"github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
+	Tars "github.com/tarscloud/k8stars/tarsregistry/autogen/tars"
 	"github.com/tarscloud/k8stars/tinycli"
-	"github.com/TarsCloud/TarsGo/tars"
-	"github.com/TarsCloud/TarsGo/tars/protocol/res/adminf"
 )
 
 var (

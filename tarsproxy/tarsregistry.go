@@ -5,10 +5,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tarscloud/k8stars/algorithm/retry"
-	"github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 	"github.com/TarsCloud/TarsGo/tars/protocol/res/endpointf"
 	"github.com/TarsCloud/TarsGo/tars/protocol/res/queryf"
+	"github.com/tarscloud/k8stars/algorithm/retry"
+	Tars "github.com/tarscloud/k8stars/tarsregistry/autogen/tars"
 )
 
 // RegistryClient is client of tars registry

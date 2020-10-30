@@ -6,14 +6,14 @@ import (
 	"strconv"
 )
 
-// ServerMetaFile is filename of server meta file
-const ServerMetaFile = "_server_meta.yaml"
-
-// ServerInfoFile is filename of server info file
-const ServerInfoFile = "server_info.yaml"
-
-// LastCheckTime is the last time of checking server status
-const CheckStatusFile = "check_status"
+const (
+	// ServerMetaFile is filename of server meta file
+	ServerMetaFile = "_server_meta.yaml"
+	// ServerInfoFile is filename of server info file
+	ServerInfoFile = "server_info.yaml"
+	// CheckStatusFile is the file to store server status
+	CheckStatusFile = "check_status"
+)
 
 var (
 	// LocalIP is the ipv4 address
@@ -26,6 +26,8 @@ var (
 	RandPortMin = 13000
 	// RandPortMax is max random port
 	RandPortMax = 16000
+	// MetricsPort is port of metrics for prometheus
+	MetricsPort = 9325
 )
 
 func init() {

@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/TarsCloud/TarsGo/tars"
-	"github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 	mtars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 	"github.com/tarscloud/k8stars/tarsregistry/store"
 )
@@ -30,7 +29,7 @@ func main() {
 	imp := &registryImp{
 		driver: driver,
 	}
-	startReq := &Tars.OnStartupReq{
+	startReq := &mtars.OnStartupReq{
 		NodeName:    cfg.LocalIP,
 		Application: cfg.App,
 		Server:      cfg.Server,
@@ -42,7 +41,7 @@ func main() {
 	for _, v := range cfg.Adapters {
 		if v.Obj == obj {
 			ep := fmt.Sprintf("%s -h %s -p %d", v.Endpoint.Proto, v.Endpoint.Host, v.Endpoint.Port)
-			startReq.Adapters = []Tars.AdapterConf{
+			startReq.Adapters = []mtars.AdapterConf{
 				{
 					Servant:      obj,
 					Endpoint:     ep,
@@ -60,6 +59,7 @@ func main() {
 	}
 
 	go imp.keepAlive(startReq)
+
 	app.AddServantWithContext(imp, obj)
 	tars.Run()
 }

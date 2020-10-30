@@ -8,11 +8,11 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/TarsCloud/TarsGo/tars/protocol/res/notifyf"
 	"github.com/tarscloud/k8stars/app/genconf"
 	"github.com/tarscloud/k8stars/consts"
 	"github.com/tarscloud/k8stars/tarsproxy"
-	"github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
-	"github.com/TarsCloud/TarsGo/tars/protocol/res/notifyf"
+	Tars "github.com/tarscloud/k8stars/tarsregistry/autogen/tars"
 )
 
 func (c *launchCmd) keepAlive(checkSucc bool) error {
@@ -54,11 +54,10 @@ func (c *launchCmd) keepAlive(checkSucc bool) error {
 		return nil
 	}
 	req := Tars.KeepAliveReq{
-		NodeName: consts.LocalIP,
-		State:    state,
+		NodeName:    consts.LocalIP,
+		State:       state,
 		Application: sConf.Application,
-		Server: sConf.Server,
-		SetID: sConf.SetID,
+		Server:      sConf.Server,
 	}
 	if err := client.KeepAlive(context.Background(), &req); err != nil {
 		log.Debugf("KeepAlive error %v", err)

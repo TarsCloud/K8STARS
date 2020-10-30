@@ -11,3 +11,4 @@ baseserver/tarsweb/TarsWeb/
 examples/simple/SimpleServer.tgz
 baseserver/tarsweb/default.env
 tarsregistry/tarsregistry
+tarsregistry/tars2go
