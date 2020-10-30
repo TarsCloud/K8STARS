@@ -17,7 +17,7 @@ make deploy
 kubectl apply -f yaml/db_all_in_one.yaml
 
 # 等待状态正常
-kubectl wait --timeout=3s --for=condition=available deployment/tars-db-all-in-one
+kubectl wait --timeout=30s --for=condition=available deployment/tars-db-all-in-one
 
 # 获取pod名
 export db_pod=$(kubectl get pod -l  app=tars-db-all-in-one -o jsonpath='{.items[0].metadata.name}')
