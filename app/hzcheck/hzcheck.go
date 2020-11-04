@@ -40,7 +40,7 @@ func (c *hzCheckCmd) Start() error {
 	if st.ModTime().Add(c.updateInterval * 2).Before(time.Now()) {
 		return fmt.Errorf("supervisor not alive")
 	}
-	if bs, _ := ioutil.ReadFile((stateFile)); string(bs) == "active" {
+	if bs, _ := ioutil.ReadFile((stateFile)); string(bs) == consts.StateActive {
 		return nil
 	}
 	return fmt.Errorf("not active")

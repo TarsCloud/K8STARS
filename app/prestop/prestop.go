@@ -49,6 +49,13 @@ func Prestop(waitStopTime time.Duration) error {
 		return nil
 	}
 	ioutil.WriteFile(preStopFile, []byte("done"), 0644)
+
+	// set state to file
+	stateFile := filepath.Join(consts.TarsPath, "data", consts.CheckStatusFile)
+	ioutil.WriteFile(stateFile, []byte(consts.StateDeactivating), 0644)
+	// wait for keeplive
+	time.Sleep(time.Second)
+
 	// get config from file
 	gConf, err := genconf.GetGlobalConf()
 	if err != nil {
@@ -62,20 +69,37 @@ func Prestop(waitStopTime time.Duration) error {
 		log.Debugf("GetRegistryClient return nil, Locator %s", sConf.Locator)
 		return nil
 	}
-	req := &Tars.OnPrestopReq{NodeName: consts.LocalIP}
-	err = client.OnPrestop(context.Background(), req)
-	if err != nil {
-		log.Debugf("Prestop error %v", err)
+
+	// set deactivating
+	req1 := &Tars.KeepAliveReq{
+		NodeName:    gConf.LocalIP,
+		Server:      sConf.Server,
+		Application: sConf.Application,
+		State:       consts.StateDeactivating,
 	}
-	// notify prestop
+	err = client.KeepAlive(context.Background(), req1)
+	if err != nil {
+		log.Debugf("KeepAlive error %v", err)
+	}
+
+	// notify
 	adminClient := &adminf.AdminF{}
 	comm := tars.NewCommunicator()
 	comm.StringToProxy("AdminObj@"+sConf.LocalEndpoint, adminClient)
 	adminClient.TarsSetTimeout(1000)
 	adminClient.Notify("prestop")
 
+	// wait
 	if waitStopTime > 0 {
 		time.Sleep(waitStopTime)
 	}
+
+	// prestop
+	req := &Tars.OnPrestopReq{NodeName: consts.LocalIP}
+	err = client.OnPrestop(context.Background(), req)
+	if err != nil {
+		log.Debugf("Prestop error %v", err)
+	}
+
 	return nil
 }

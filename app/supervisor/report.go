@@ -32,9 +32,16 @@ func (c *launchCmd) keepAlive(checkSucc bool) error {
 	if bs, err := ioutil.ReadFile(stateFile); err == nil {
 		lastState = string(bs)
 	}
-	state := "inactive"
+	if lastState == consts.StateDeactivating {
+		log.Debugf("skip deactiving server")
+		return nil
+	}
+
+	state := consts.StateInactive
 	if checkSucc {
-		state = "active"
+		state = consts.StateActive
+	} else if lastState == consts.StateActivating {
+		state = lastState
 	}
 
 	if st != nil && st.ModTime().Add(c.reportStatusInterval).After(time.Now()) {
@@ -72,6 +79,10 @@ func registerNode(sConf *genconf.ServerConf, disableFlow bool) error {
 	if client == nil {
 		return fmt.Errorf("get client failed")
 	}
+	// set activating state to file
+	stateFile := filepath.Join(consts.TarsPath, "data", consts.CheckStatusFile)
+	ioutil.WriteFile(stateFile, []byte(consts.StateActivating), 0644)
+
 	adapters := make([]Tars.AdapterConf, len(sConf.Adapters))
 	for i := range sConf.Adapters {
 		sv := sConf.Adapters[i]
@@ -92,7 +103,7 @@ func registerNode(sConf *genconf.ServerConf, disableFlow bool) error {
 		NodeName:    consts.LocalIP,
 		Adapters:    adapters,
 		DisableFlow: disableFlow,
-		State:       "activating",
+		State:       consts.StateActivating,
 		Version:     os.Getenv("SERVER_VERSION"),
 	}
 	return client.OnStartup(context.Background(), &req)

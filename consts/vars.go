@@ -13,6 +13,12 @@ const (
 	ServerInfoFile = "server_info.yaml"
 	// CheckStatusFile is the file to store server status
 	CheckStatusFile = "check_status"
+
+	// server state
+	StateActive       = "active"
+	StateInactive     = "inactive"
+	StateActivating   = "activating"
+	StateDeactivating = "deactivating"
 )
 
 var (
