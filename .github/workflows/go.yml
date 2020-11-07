@@ -33,4 +33,4 @@ jobs:
       run: go build -v ./cmd/tarscli
 
     - name: Test
-      run: go test -v ./cmd/tarscli
+      run: go test -v ./...
