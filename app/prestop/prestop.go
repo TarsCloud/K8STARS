@@ -95,7 +95,11 @@ func Prestop(waitStopTime time.Duration) error {
 	}
 
 	// prestop
-	req := &Tars.OnPrestopReq{NodeName: consts.LocalIP}
+	req := &Tars.OnPrestopReq{
+		NodeName:    gConf.LocalIP,
+		Application: sConf.Application,
+		Server:      sConf.Server,
+	}
 	err = client.OnPrestop(context.Background(), req)
 	if err != nil {
 		log.Debugf("Prestop error %v", err)

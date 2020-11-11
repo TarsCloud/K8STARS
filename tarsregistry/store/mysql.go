@@ -6,13 +6,14 @@ import (
 	"fmt"
 	"strings"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/tarscloud/k8stars/consts"
 )
 
 type mysqlDriver struct {
 	db *sql.DB
 }
 
+// NewMysqlDB implements the driver
 func NewMysqlDB(dsn string) (Store, error) {
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
@@ -88,20 +89,80 @@ func (m *mysqlDriver) RegistryAdapter(ctx context.Context, confs []*AdapterConf)
 	return nil
 }
 
-func (m *mysqlDriver) DeleteNodeConf(ctx context.Context, nodeName string) error {
-	sql := "delete from t_adapter_conf where node_name=?"
-	if _, err := m.db.ExecContext(ctx, sql, nodeName); err != nil {
+func (m *mysqlDriver) DeleteServerConf(ctx context.Context, nodeName, app, server string) error {
+	sql := "delete from t_adapter_conf where node_name=? and application=? and server=?"
+	if _, err := m.db.ExecContext(ctx, sql, nodeName, app, server); err != nil {
 		return err
 	}
-	sql = "delete from t_server_conf where node_name=?"
-	if _, err := m.db.ExecContext(ctx, sql, nodeName); err != nil {
-		return err
-	}
-	sql = "delete from t_node_info where node_name=?"
-	if _, err := m.db.ExecContext(ctx, sql, nodeName); err != nil {
+	sql = "delete from t_server_conf where node_name=? and application=? and server=?"
+	if _, err := m.db.ExecContext(ctx, sql, nodeName, app, server); err != nil {
 		return err
 	}
 	return nil
+}
+
+func (m *mysqlDriver) DeleteAllInactive(ctx context.Context, datetime string, dryRun bool) ([]string, error) {
+	ret := make([]string, 0)
+	sql := `select node_name, application, server_name from t_server_conf where node_name in 
+		(select node_name from t_node_info where present_state=? and last_heartbeat<?)`
+	res, err := m.db.QueryContext(ctx, sql, consts.StateInactive, datetime)
+	if err != nil {
+		return nil, err
+	}
+	for res.Next() {
+		var s1, s2, s3 string
+		if err := res.Scan(&s1, &s2, &s3); err != nil {
+			res.Close()
+			return nil, err
+		}
+		ret = append(ret, fmt.Sprintf("%s.%s.%s", s1, s2, s3))
+	}
+	res.Close()
+
+	sql = `select node_name from t_node_info where present_state=? and last_heartbeat<? 
+	and node_name not in (select node_name from t_server_conf)`
+	res, err = m.db.QueryContext(ctx, sql, consts.StateInactive, datetime)
+	if err != nil {
+		return nil, err
+	}
+	for res.Next() {
+		var ss string
+		if err := res.Scan(&ss); err != nil {
+			res.Close()
+			return nil, err
+		}
+		ret = append(ret, ss)
+	}
+	res.Close()
+
+	if dryRun {
+		return ret, nil
+	}
+
+	// delete server conf
+	sql = `delete from t_server_conf where node_name in 
+	(select node_name from t_node_info where present_state=? and last_heartbeat<?)`
+	_, err = m.db.ExecContext(ctx, sql, consts.StateInactive, datetime)
+	if err != nil {
+		return nil, err
+	}
+
+	// delete adapter conf
+	sql = `delete from t_adapter_conf where node_name in 
+	(select node_name from t_node_info where present_state=? and last_heartbeat<?)`
+	_, err = m.db.ExecContext(ctx, sql, consts.StateInactive, datetime)
+	if err != nil {
+		return nil, err
+	}
+
+	//  delete node info
+	sql = `delete from t_node_info where present_state=? and last_heartbeat<? 
+	and node_name not in (select node_name from t_server_conf)`
+	_, err = m.db.ExecContext(ctx, sql, consts.StateInactive, datetime)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
 }
 
 func (m *mysqlDriver) KeepAliveNode(ctx context.Context, nodeName string) error {

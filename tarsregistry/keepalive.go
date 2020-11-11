@@ -4,6 +4,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/tarscloud/k8stars/consts"
+
 	tars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 )
 
@@ -12,7 +14,7 @@ func (s *registryImp) keepAlive(startReq *tars.OnStartupReq) {
 	ctx := context.Background()
 	keepReq := &tars.KeepAliveReq{
 		NodeName:    startReq.NodeName,
-		State:       "active",
+		State:       consts.StateActive,
 		Application: startReq.Application,
 		Server:      startReq.Server,
 	}

@@ -3,6 +3,7 @@ package store
 import "context"
 
 type ServerConf struct {
+	ID          string
 	Application string
 	Server      string
 	NodeName    string
@@ -40,8 +41,9 @@ type Store interface {
 	RegisterNode(ctx context.Context, nodeName string) error
 	RegisterServer(ctx context.Context, conf *ServerConf) error
 	RegistryAdapter(ctx context.Context, conf []*AdapterConf) error
-	DeleteNodeConf(ctx context.Context, nodeName string) error
+	DeleteServerConf(ctx context.Context, nodeName, application, server string) error
 	KeepAliveNode(ctx context.Context, nodeName string) error
+	DeleteAllInactive(ctx context.Context, datetime string, dryRun bool) ([]string, error)
 	SetServerState(ctx context.Context, nodeName, application, server, state string) error
 	RegisterMetrics(ctx context.Context, nodeName, application, server string, port int) error
 	GetMetricTargets(ctx context.Context) ([]MetricsTarget, error)
