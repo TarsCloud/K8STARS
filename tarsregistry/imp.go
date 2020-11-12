@@ -77,7 +77,11 @@ func (r *registryImp) OnStartup(ctx context.Context, Req *tars.OnStartupReq) (er
 // OnPrestop is a reentrant function
 func (r *registryImp) OnPrestop(ctx context.Context, Req *tars.OnPrestopReq) (err error) {
 	logger.Debugf("OnPrestop: %+v", Req)
-	return r.driver.DeleteNodeConf(ctx, Req.NodeName)
+	// compatible with old version
+	if Req.Application == "" && Req.Server == "" {
+		return r.driver.SetServerState(ctx, Req.NodeName, Req.Application, Req.Server, consts.StateDestroyed)
+	}
+	return r.driver.DeleteServerConf(ctx, Req.NodeName, Req.Application, Req.Server)
 }
 
 // KeepAlive is a reentrant function
@@ -88,7 +92,7 @@ func (r *registryImp) KeepAlive(ctx context.Context, Req *tars.KeepAliveReq) (er
 		return err
 	}
 	if Req.State == "" {
-		Req.State = "active"
+		Req.State = consts.StateActive
 	}
 	return r.driver.SetServerState(ctx, Req.NodeName, Req.Application, Req.Server, Req.State)
 }
@@ -154,4 +158,33 @@ func (r *registryImp) registryMetrics() {
 	if err != nil {
 		logger.Errorf("ListenAndServe error %v", err)
 	}
+}
+
+func (r *registryImp) cleanAll(cmd string) (string, error) {
+	args := strings.Fields(cmd)
+	var datetime string
+	var dryRun bool
+	if len(args) == 1 {
+		dryRun = true
+		datetime = time.Now().Add(-time.Hour * 24).Format("2006-01-02 15:04:05")
+	} else if len(args) == 2 {
+		dryRun = args[1] != "n" && args[1] != "N"
+		datetime = time.Now().Add(-time.Hour * 24).Format("2006-01-02 15:04:05")
+	} else if len(args) == 3 {
+		dryRun = args[1] != "n" && args[1] != "N"
+		datetime = args[2]
+	} else {
+		return "", fmt.Errorf("usage: %s [dryRun] [datetime]", args[0])
+	}
+	ret, err := r.driver.DeleteAllInactive(context.Background(), datetime, dryRun)
+	if err != nil {
+		return "", err
+	}
+	res := "\n" + strings.Join(ret, "\n")
+	if dryRun {
+		res += "\nDry run.\n"
+	} else {
+		res += "\nDeleted\n"
+	}
+	return res, nil
 }

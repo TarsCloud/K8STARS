@@ -19,6 +19,7 @@ const (
 	StateInactive     = "inactive"
 	StateActivating   = "activating"
 	StateDeactivating = "deactivating"
+	StateDestroyed    = "destroyed"
 )
 
 var (

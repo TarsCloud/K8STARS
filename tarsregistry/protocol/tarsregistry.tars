@@ -23,6 +23,8 @@ module tars
 
     struct onPrestopReq{
         0 require string nodeName;
+        1 optional string application;
+        2 optional string server;
     };
 
     struct keepAliveReq{

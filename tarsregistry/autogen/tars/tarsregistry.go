@@ -388,7 +388,9 @@ func (st *OnStartupReq) WriteBlock(_os *codec.Buffer, tag byte) error {
 
 // OnPrestopReq struct implement
 type OnPrestopReq struct {
-	NodeName string `json:"nodeName"`
+	NodeName    string `json:"nodeName"`
+	Application string `json:"application"`
+	Server      string `json:"server"`
 }
 
 func (st *OnPrestopReq) ResetDefault() {
@@ -403,6 +405,16 @@ func (st *OnPrestopReq) ReadFrom(_is *codec.Reader) error {
 	st.ResetDefault()
 
 	err = _is.Read_string(&st.NodeName, 0, true)
+	if err != nil {
+		return err
+	}
+
+	err = _is.Read_string(&st.Application, 1, false)
+	if err != nil {
+		return err
+	}
+
+	err = _is.Read_string(&st.Server, 2, false)
 	if err != nil {
 		return err
 	}
@@ -449,6 +461,16 @@ func (st *OnPrestopReq) WriteTo(_os *codec.Buffer) error {
 	var err error
 
 	err = _os.Write_string(st.NodeName, 0)
+	if err != nil {
+		return err
+	}
+
+	err = _os.Write_string(st.Application, 1)
+	if err != nil {
+		return err
+	}
+
+	err = _os.Write_string(st.Server, 2)
 	if err != nil {
 		return err
 	}

@@ -4,9 +4,13 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/tarscloud/k8stars/consts"
+
 	"github.com/TarsCloud/TarsGo/tars"
 	mtars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
 	"github.com/tarscloud/k8stars/tarsregistry/store"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
@@ -29,12 +33,13 @@ func main() {
 	imp := &registryImp{
 		driver: driver,
 	}
+
 	startReq := &mtars.OnStartupReq{
 		NodeName:    cfg.LocalIP,
 		Application: cfg.App,
 		Server:      cfg.Server,
 		SetID:       cfg.Setdivision,
-		State:       "active",
+		State:       consts.StateActive,
 		Version:     os.Getenv("SERVER_VERSION"),
 	}
 	obj := cfg.App + "." + cfg.Server + ".Registry"
@@ -59,6 +64,8 @@ func main() {
 	}
 
 	go imp.keepAlive(startReq)
+
+	tars.RegisterAdmin("clean", imp.cleanAll)
 
 	app.AddServantWithContext(imp, obj)
 	tars.Run()
