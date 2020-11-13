@@ -86,4 +86,5 @@ curl https://raw.githubusercontent.com/TarsCloud/K8STARS/master/baseserver/insta
 ## 清理所有tars相关基础服务
 ```
 kubectl delete all --all -n tars-system
+kubectl delete namespace tars-system
 ```
