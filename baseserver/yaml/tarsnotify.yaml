@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: tarsnotify
-        image: ccr.ccs.tencentyun.com/tarsbase/tarsnotify:latest
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsnotify:v1.1.0
         env:
         - name: DB_HOST
           valueFrom:

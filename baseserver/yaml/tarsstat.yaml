@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: tarsstat
-        image: ccr.ccs.tencentyun.com/tarsbase/tarsstat:latest
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsstat:v1.1.0
         env:
         - name: DB_HOST
           valueFrom:

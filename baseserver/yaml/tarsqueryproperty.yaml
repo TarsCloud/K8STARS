@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: tarsqueryproperty
-        image: ccr.ccs.tencentyun.com/tarsbase/tarsqueryproperty:latest
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsqueryproperty:v1.1.0
         env:
         - name: DB_HOST
           valueFrom:

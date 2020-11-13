@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: tars-web
-        image: ccr.ccs.tencentyun.com/tarsbase/tarsweb:latest
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsweb:v1.1.0
         ports:
           - containerPort: 3000
         env:
