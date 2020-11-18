@@ -90,11 +90,11 @@ func (m *mysqlDriver) RegistryAdapter(ctx context.Context, confs []*AdapterConf)
 }
 
 func (m *mysqlDriver) DeleteServerConf(ctx context.Context, nodeName, app, server string) error {
-	sql := "delete from t_adapter_conf where node_name=? and application=? and server=?"
+	sql := "delete from t_adapter_conf where node_name=? and application=? and server_name=?"
 	if _, err := m.db.ExecContext(ctx, sql, nodeName, app, server); err != nil {
 		return err
 	}
-	sql = "delete from t_server_conf where node_name=? and application=? and server=?"
+	sql = "delete from t_server_conf where node_name=? and application=? and server_name=?"
 	if _, err := m.db.ExecContext(ctx, sql, nodeName, app, server); err != nil {
 		return err
 	}
@@ -178,6 +178,9 @@ func (m *mysqlDriver) SetServerState(ctx context.Context, nodeName, application,
 	// compatible with old report
 	if application == "" || server == "" {
 		sql = "update t_server_conf set present_state = ? where node_name = ?"
+		if state == consts.StateDestroyed {
+			sql = "update t_server_conf set setting_state = ? where node_name = ?"
+		}
 		_, err = m.db.ExecContext(ctx, sql, state, nodeName)
 
 	} else {
