@@ -51,7 +51,7 @@ spec:
                 name: tars-db-config
                 key: DB_PASS
       - name: tars-registry
-        image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:v1.1.0
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:v1.1.1
         lifecycle:
           preStop:
             exec:

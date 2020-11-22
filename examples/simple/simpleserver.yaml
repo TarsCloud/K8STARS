@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: simpleserver
-        image: ccr.ccs.tencentyun.com/tarsbase/simpleserver:20201103202530
+        image: ccr.ccs.tencentyun.com/tarsbase/simpleserver:20201122105724
         readinessProbe:
             exec:
               command: ["tarscli", "hzcheck"]
