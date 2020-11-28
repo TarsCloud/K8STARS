@@ -41,9 +41,9 @@ func (c *hzCheckCmd) Start() error {
 		return fmt.Errorf("supervisor not alive")
 	}
 	bs, err := ioutil.ReadFile(stateFile)
-	if err != nil {
+	if err != nil || string(bs) == "" {
 		// maybe concurrent read and write, try again
-		time.Sleep(time.Millisecond)
+		time.Sleep(time.Millisecond * 5)
 		bs, _ = ioutil.ReadFile(stateFile)
 	}
 	if string(bs) == consts.StateActive || string(bs) == consts.StateDeactivating {
