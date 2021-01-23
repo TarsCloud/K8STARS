@@ -9,6 +9,8 @@ import (
 	"runtime"
 	"time"
 
+	"github.com/tarscloud/k8stars/algorithm/retry"
+
 	"github.com/tarscloud/k8stars/algorithm/recentuse"
 	"github.com/tarscloud/k8stars/app/genconf"
 	"github.com/tarscloud/k8stars/consts"
@@ -19,6 +21,8 @@ import (
 
 var (
 	log = logger.GetLogger()
+
+	launchTime = time.Now()
 )
 
 type launchCmd struct {
@@ -36,6 +40,9 @@ type launchCmd struct {
 	waitStopTime         time.Duration
 	disableFlow          string
 	onExitChan           chan bool
+
+	activatingTimeout time.Duration
+	checkRetryTimeout time.Duration
 
 	originStdout *os.File
 }
@@ -61,9 +68,11 @@ func (c *launchCmd) InitFlag(setter tinycli.EnvFlagSetter) {
 	setter.SetString("TARS_BEFORE_CHECK_SCRIPT", &c.beforeCheckScript, "", "Run script before check")
 	setter.SetDuration("TARS_CHECK_SCRIPT_TIMEOUT", &c.checkScriptTimeout, "2s", "Max running time of script")
 	setter.SetDuration("TARS_PRESTOP_WAITTIME", &c.waitStopTime, "80s", "Wait time before stop")
+	setter.SetDuration("TARS_ACTIVATING_TIMEOUT", &c.activatingTimeout, "300s", "Max time for activating")
+	setter.SetDuration("TARS_CHECK_RETRY_TIMEOUT", &c.checkRetryTimeout, "5s", "Max time to check status")
 }
 
-func (c *launchCmd) checkStatus() bool {
+func (c *launchCmd) checkStatus(tryfunc retry.Func) bool {
 	// get config from file
 	gConf, err := genconf.GetGlobalConf()
 	if err != nil {
@@ -71,7 +80,9 @@ func (c *launchCmd) checkStatus() bool {
 	}
 	sConf := &gConf.Conf
 
-	err = CheckServerStatus(sConf)
+	err = tryfunc(func() error {
+		return CheckServerStatus(sConf)
+	})
 	if err != nil {
 		log.Errorf("Check error %v", err)
 		return false
@@ -87,7 +98,11 @@ func (c *launchCmd) restartAndNotify() {
 		return
 	}
 	sConf := &gConf.Conf
-	noitfyMsg(sConf, "[alarm] down, server is inactive")
+	if launchTime.Add(c.activatingTimeout).Before(time.Now()) {
+		noitfyMsg(sConf, "[alarm] down, server is inactive")
+	} else {
+		noitfyMsg(sConf, "[warn] server down")
+	}
 }
 
 func (c *launchCmd) restartSever() {
@@ -165,12 +180,14 @@ func (c *launchCmd) check() {
 	shutdownChan := waitShutdown()
 	checkTk := time.NewTicker(c.checkIntv)
 
+	checkStatusRetry := retry.New(retry.MaxTimeoutOpt(c.checkRetryTimeout, time.Second))
+
 	isStop := false
 	for {
 		select {
 		case <-checkTk.C:
 			go c.preCheck()
-			beActive := c.checkStatus()
+			beActive := c.checkStatus(checkStatusRetry)
 			log.Debugf("check status ret: %v", beActive)
 			c.keepAlive(beActive)
 			if isStop {

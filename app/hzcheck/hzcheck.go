@@ -41,13 +41,18 @@ func (c *hzCheckCmd) Start() error {
 		return fmt.Errorf("supervisor not alive")
 	}
 	bs, err := ioutil.ReadFile(stateFile)
-	if err != nil || string(bs) == "" {
-		// maybe concurrent read and write, try again
-		time.Sleep(time.Millisecond * 5)
-		bs, _ = ioutil.ReadFile(stateFile)
+
+	// maybe concurrent read and write, try again
+	for tryCount := 10; tryCount > 0; tryCount-- {
+		if err != nil || string(bs) == "" {
+			time.Sleep(time.Millisecond * 50)
+			bs, err = ioutil.ReadFile(stateFile)
+		} else {
+			break
+		}
 	}
 	if string(bs) == consts.StateActive || string(bs) == consts.StateDeactivating {
 		return nil
 	}
-	return fmt.Errorf("not active")
+	return fmt.Errorf("not active:%s", string(bs))
 }
