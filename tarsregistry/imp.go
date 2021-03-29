@@ -10,7 +10,7 @@ import (
 	rtars "github.com/TarsCloud/TarsGo/tars"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/tarscloud/k8stars/consts"
-	tars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
+	tars "github.com/tarscloud/k8stars/tarsregistry/autogen/tars"
 	"github.com/tarscloud/k8stars/tarsregistry/store"
 )
 
