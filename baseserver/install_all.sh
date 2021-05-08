@@ -17,8 +17,8 @@ make deploy
 kubectl apply -f yaml/db_all_in_one.yaml
 
 # 等待状态正常
-kubectl wait --timeout=30s --for=condition=available deployment/tars-db-all-in-one
-sleep 2
+kubectl wait --timeout=300s --for=condition=available deployment/tars-db-all-in-one
+sleep 10
 
 # 获取pod名
 export db_pod=$(kubectl get pod -l  app=tars-db-all-in-one -o jsonpath='{.items[0].metadata.name}')
@@ -32,7 +32,7 @@ for server in "tarsnotify" "tarsconfig" "tarslog" "tarsstat" "tarsproperty" "tar
     kubectl apply -f yaml/$server.yaml 
 done 
 
-kubectl wait --timeout=30s --for=condition=available deployment/tars-web
+kubectl wait --timeout=300s --for=condition=available deployment/tars-web
 # 安装完成后恢复到默认的namespace：
 kubectl config set-context --current --namespace=default
 

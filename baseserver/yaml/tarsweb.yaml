@@ -19,6 +19,7 @@ spec:
         image: ccr.ccs.tencentyun.com/tarsbase/tarsweb:v1.1.0
         ports:
           - containerPort: 3000
+            hostPort: 30000
         env:
         - name: DB_HOST
           valueFrom:
@@ -40,16 +41,3 @@ spec:
             configMapKeyRef:
               name: tars-db-config
               key: DB_PASS 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tars-web
-spec:
-  type: NodePort
-  selector:
-    app: tars-web
-  ports:
-    - port: 3000
-      targetPort: 3000
-      nodePort: 30000
