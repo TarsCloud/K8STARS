@@ -4,8 +4,7 @@ import (
 	"fmt"
 
 	"github.com/TarsCloud/TarsGo/tars"
-
-	"TestApp/HelloGo/TestApp"
+	"github.com/tarscloud/k8stars/examples/TestApp/HelloGo/TestApp"
 )
 
 func main() {

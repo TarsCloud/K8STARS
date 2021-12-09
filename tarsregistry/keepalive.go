@@ -6,7 +6,7 @@ import (
 
 	"github.com/tarscloud/k8stars/consts"
 
-	tars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
+	tars "github.com/tarscloud/k8stars/tarsregistry/autogen/tars"
 )
 
 func (s *registryImp) keepAlive(startReq *tars.OnStartupReq) {
