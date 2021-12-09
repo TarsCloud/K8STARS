@@ -109,7 +109,7 @@ func defaultServerConf() ServerConf {
 		LogObj:              "tars.tarslog.LogObj",
 		LogLevel:            "DEBUG",
 		DeactivatingTimeout: 3000,
-		LocalEndpoint:       "tcp -h 127.0.0.1 -p ${random_port}",
+		LocalEndpoint:       "tcp -h 127.0.0.1 -p ${random_port} -t 5000",
 	}
 }
 
@@ -135,7 +135,7 @@ func generateConf(sConf *ServerConf, buildServer, mergeConf string) error {
 	for i := range sConf.Adapters {
 		sv := &sConf.Adapters[i]
 		if sv.Endpoint == "" {
-			sv.Endpoint = "tcp -h ${local_ip} -p ${random_port}"
+			sv.Endpoint = "tcp -h ${local_ip} -p ${random_port} -t 30000"
 		}
 		if strings.Contains(sv.Endpoint, "${local_ip}") {
 			sv.Endpoint = strings.ReplaceAll(sv.Endpoint, "${local_ip}", consts.LocalIP)

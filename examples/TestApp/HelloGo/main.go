@@ -6,7 +6,7 @@ import (
 
 	"github.com/TarsCloud/TarsGo/tars"
 
-	"TestApp/HelloGo/TestApp"
+	"github.com/tarscloud/k8stars/examples/TestApp/HelloGo/TestApp"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 	app := new(TestApp.SayHello)
 	// Register Servant
 	app.AddServantWithContext(imp, cfg.App+"."+cfg.Server+".SayHelloObj")
-	
+
 	// Run application
 	tars.Run()
 }

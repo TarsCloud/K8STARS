@@ -7,7 +7,7 @@ import (
 	"github.com/tarscloud/k8stars/consts"
 
 	"github.com/TarsCloud/TarsGo/tars"
-	mtars "github.com/tarscloud/k8stars/tarsregistry/autogen/Tars"
+	mtars "github.com/tarscloud/k8stars/tarsregistry/autogen/tars"
 	"github.com/tarscloud/k8stars/tarsregistry/store"
 
 	_ "github.com/go-sql-driver/mysql"
