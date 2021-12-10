@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: tars-cppregistry
-        image: ccr.ccs.tencentyun.com/tarsbase/cppregistry:v1.1.0
+        image: ccr.ccs.tencentyun.com/tarsbase/cppregistry:v1.1.3
         ports:
           - containerPort: 17890
         env:
@@ -51,7 +51,7 @@ spec:
                 name: tars-db-config
                 key: DB_PASS
       - name: tars-registry
-        image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:v1.1.1
+        image: ccr.ccs.tencentyun.com/tarsbase/tarsregistry:v1.1.3
         lifecycle:
           preStop:
             exec:

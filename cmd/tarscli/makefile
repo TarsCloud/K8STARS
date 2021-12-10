@@ -1,5 +1,5 @@
 GOBUILD := GOOS=linux go build
-VERSION ?= latest
+VERSION ?= $(shell git describe --tags)
 
 ALL:
 	$(GOBUILD) -ldflags "-X main.VERSION=$(VERSION)" -o tarscli
