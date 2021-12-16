@@ -24,6 +24,7 @@ spec:
       labels:
         app: tars-registry
     spec:
+      terminationGracePeriodSeconds: 90    
       containers:
       - name: tars-cppregistry
         image: ccr.ccs.tencentyun.com/tarsbase/cppregistry:v1.1.3
