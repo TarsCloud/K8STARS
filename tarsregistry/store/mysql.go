@@ -98,6 +98,10 @@ func (m *mysqlDriver) DeleteServerConf(ctx context.Context, nodeName, app, serve
 	if _, err := m.db.ExecContext(ctx, sql, nodeName, app, server); err != nil {
 		return err
 	}
+	sql = "delete from t_config_files where host<>'' and host=? and server_name=?"
+	if _, err := m.db.ExecContext(ctx, sql, nodeName, strings.Join([]string{app, server}, ".")); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -149,6 +153,14 @@ func (m *mysqlDriver) DeleteAllInactive(ctx context.Context, datetime string, dr
 
 	// delete adapter conf
 	sql = `delete from t_adapter_conf where node_name in 
+	(select node_name from t_node_info where present_state=? and last_heartbeat<?)`
+	_, err = m.db.ExecContext(ctx, sql, consts.StateInactive, datetime)
+	if err != nil {
+		return nil, err
+	}
+
+	// delete node config files
+	sql = `delete from t_config_files where host<>'' and host in 
 	(select node_name from t_node_info where present_state=? and last_heartbeat<?)`
 	_, err = m.db.ExecContext(ctx, sql, consts.StateInactive, datetime)
 	if err != nil {
