@@ -18,7 +18,7 @@ func waitShutdown() <-chan bool {
 func onShutdown(c chan bool) {
 	cc := make(chan os.Signal, 1)
 	signal.Notify(cc, unix.SIGTERM)
-	for range c {
+	for range cc {
 		c <- true
 	}
 }
